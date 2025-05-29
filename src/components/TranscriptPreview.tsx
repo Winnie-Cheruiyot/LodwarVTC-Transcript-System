@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Print, Download } from "lucide-react";
+import { Printer, Download } from "lucide-react";
 import { TranscriptData } from "@/types/transcript";
 import { toast } from "sonner";
 
@@ -83,7 +83,7 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
         <h2 className="text-xl font-bold text-blue-900">Transcript Preview</h2>
         <div className="flex gap-2">
           <Button onClick={handlePrint} variant="outline" size="sm">
-            <Print className="w-4 h-4 mr-2" />
+            <Printer className="w-4 h-4 mr-2" />
             Print
           </Button>
           <Button onClick={handleDownload} variant="outline" size="sm">
@@ -288,14 +288,14 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
             <p className="text-xs mt-2">{hodComments}</p>
             <div className="mt-8 text-center">
               <div className="border-t border-gray-400 pt-2">
-                <strong className="text-xs">H.O.D ELECTRICAL</strong>
+                <strong className="text-xs">H.O.D</strong>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @media print {
           .transcript-content {
             box-shadow: none !important;
