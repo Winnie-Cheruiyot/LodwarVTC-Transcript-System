@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -19,28 +18,17 @@ const ExcelUploader = ({ onDataParsed }: ExcelUploaderProps) => {
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
 
   const downloadTemplate = () => {
-    const csvContent = `Student Name,Admission No,Course,School Year,Unit Name,CAT Score,Exam Score
-John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,TRADE THEORY,25,45
-John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,TRADE PRACTICE,28,52
-John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,COMMUNICATION SKILLS,22,48
-John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,ENTREPRENEURSHIP,26,49
-John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,MATHEMATICS,24,46
-John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,GENERAL SCIENCE,23,47
-John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,DIGITAL LITERACY,27,53
-Jane Smith,ADM002,PLUMBING,2023/2024,TRADE THEORY,28,48
-Jane Smith,ADM002,PLUMBING,2023/2024,TRADE PRACTICE,30,55
-Jane Smith,ADM002,PLUMBING,2023/2024,COMMUNICATION SKILLS,25,50
-Jane Smith,ADM002,PLUMBING,2023/2024,ENTREPRENEURSHIP,29,51
-Jane Smith,ADM002,PLUMBING,2023/2024,MATHEMATICS,27,49
-Jane Smith,ADM002,PLUMBING,2023/2024,GENERAL SCIENCE,26,48
-Jane Smith,ADM002,PLUMBING,2023/2024,DIGITAL LITERACY,30,56
-Mike Johnson,ADM003,CARPENTRY,2023/2024,TRADE THEORY,24,42
-Mike Johnson,ADM003,CARPENTRY,2023/2024,TRADE PRACTICE,26,44
-Mike Johnson,ADM003,CARPENTRY,2023/2024,COMMUNICATION SKILLS,20,45
-Mike Johnson,ADM003,CARPENTRY,2023/2024,ENTREPRENEURSHIP,25,46
-Mike Johnson,ADM003,CARPENTRY,2023/2024,MATHEMATICS,23,43
-Mike Johnson,ADM003,CARPENTRY,2023/2024,GENERAL SCIENCE,22,44
-Mike Johnson,ADM003,CARPENTRY,2023/2024,DIGITAL LITERACY,25,47`;
+    const csvContent = `Student Name,Admission No,Course,School Year,Trade Theory CAT,Trade Theory Exam,Trade Practice CAT,Trade Practice Exam,Communication Skills CAT,Communication Skills Exam,Entrepreneurship CAT,Entrepreneurship Exam,Mathematics CAT,Mathematics Exam,General Science CAT,General Science Exam,Digital Literacy CAT,Digital Literacy Exam
+John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,25,45,28,52,22,48,26,49,24,46,23,47,27,53
+Jane Smith,ADM002,PLUMBING,2023/2024,28,48,30,55,25,50,29,51,27,49,26,48,30,56
+Mike Johnson,ADM003,CARPENTRY,2023/2024,24,42,26,44,20,45,25,46,23,43,22,44,25,47
+Sarah Wilson,ADM004,ELECTRICAL INSTALLATION,2023/2024,30,50,32,58,28,52,30,54,29,51,27,49,31,57
+David Brown,ADM005,PLUMBING,2023/2024,26,46,29,53,24,48,27,50,25,47,24,46,28,52
+Lisa Taylor,ADM006,CARPENTRY,2023/2024,22,40,25,43,21,44,24,45,22,42,21,43,24,46
+Robert Clark,ADM007,ELECTRICAL INSTALLATION,2023/2024,29,49,31,56,27,51,29,52,28,50,26,48,30,55
+Emily Davis,ADM008,PLUMBING,2023/2024,27,47,30,54,26,49,28,51,26,48,25,47,29,53
+Mark Thompson,ADM009,CARPENTRY,2023/2024,23,41,26,44,22,45,25,46,23,43,22,44,25,47
+Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30,52,28,50,32,58`;
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -138,43 +126,77 @@ Mike Johnson,ADM003,CARPENTRY,2023/2024,DIGITAL LITERACY,25,47`;
           return;
         }
 
-        // Group data by student
-        const studentDataMap = new Map<string, any>();
-        
+        const headers = lines[0].split(',').map(h => h.trim());
+        const students: TranscriptData[] = [];
+
+        // Process each student row (starting from line 1)
         lines.slice(1).forEach(line => {
           const cols = line.split(',').map(col => col.trim());
-          if (cols.length < 7) return;
+          if (cols.length < 4) return;
           
-          const [studentName, admissionNo, course, schoolYear, unitName, catStr, examStr] = cols;
-          const cat = Number(catStr) || 0;
-          const exam = Number(examStr) || 0;
-          const total = cat + exam;
-          const grade = calculateGrade(total);
-
-          const studentKey = `${admissionNo}-${studentName}`;
+          const [studentName, admissionNo, course, schoolYear] = cols;
           
-          if (!studentDataMap.has(studentKey)) {
-            studentDataMap.set(studentKey, {
-              studentName,
-              admissionNo,
-              course,
-              schoolYear,
-              courseUnits: []
-            });
-          }
+          // Standard course units
+          const courseUnits = [
+            {
+              name: "TRADE THEORY",
+              cat: Number(cols[4]) || 0,
+              exam: Number(cols[5]) || 0,
+              total: (Number(cols[4]) || 0) + (Number(cols[5]) || 0),
+              grade: calculateGrade((Number(cols[4]) || 0) + (Number(cols[5]) || 0))
+            },
+            {
+              name: "TRADE PRACTICE",
+              cat: Number(cols[6]) || 0,
+              exam: Number(cols[7]) || 0,
+              total: (Number(cols[6]) || 0) + (Number(cols[7]) || 0),
+              grade: calculateGrade((Number(cols[6]) || 0) + (Number(cols[7]) || 0))
+            },
+            {
+              name: "COMMUNICATION SKILLS",
+              cat: Number(cols[8]) || 0,
+              exam: Number(cols[9]) || 0,
+              total: (Number(cols[8]) || 0) + (Number(cols[9]) || 0),
+              grade: calculateGrade((Number(cols[8]) || 0) + (Number(cols[9]) || 0))
+            },
+            {
+              name: "ENTREPRENEURSHIP",
+              cat: Number(cols[10]) || 0,
+              exam: Number(cols[11]) || 0,
+              total: (Number(cols[10]) || 0) + (Number(cols[11]) || 0),
+              grade: calculateGrade((Number(cols[10]) || 0) + (Number(cols[11]) || 0))
+            },
+            {
+              name: "MATHEMATICS",
+              cat: Number(cols[12]) || 0,
+              exam: Number(cols[13]) || 0,
+              total: (Number(cols[12]) || 0) + (Number(cols[13]) || 0),
+              grade: calculateGrade((Number(cols[12]) || 0) + (Number(cols[13]) || 0))
+            },
+            {
+              name: "GENERAL SCIENCE",
+              cat: Number(cols[14]) || 0,
+              exam: Number(cols[15]) || 0,
+              total: (Number(cols[14]) || 0) + (Number(cols[15]) || 0),
+              grade: calculateGrade((Number(cols[14]) || 0) + (Number(cols[15]) || 0))
+            },
+            {
+              name: "DIGITAL LITERACY",
+              cat: Number(cols[16]) || 0,
+              exam: Number(cols[17]) || 0,
+              total: (Number(cols[16]) || 0) + (Number(cols[17]) || 0),
+              grade: calculateGrade((Number(cols[16]) || 0) + (Number(cols[17]) || 0))
+            }
+          ];
 
-          if (unitName) {
-            studentDataMap.get(studentKey).courseUnits.push({
-              name: unitName,
-              cat,
-              exam,
-              total,
-              grade
-            });
-          }
+          students.push({
+            studentName,
+            admissionNo,
+            course,
+            schoolYear,
+            courseUnits
+          });
         });
-
-        const students = Array.from(studentDataMap.values()) as TranscriptData[];
         
         if (students.length === 0) {
           toast.error("No valid student data found");
@@ -258,7 +280,7 @@ Mike Johnson,ADM003,CARPENTRY,2023/2024,DIGITAL LITERACY,25,47`;
               Upload Excel/CSV File
             </h3>
             <p className="text-gray-600 mb-4">
-              Upload a CSV file with student data and course units (supports multiple students)
+              Upload a CSV file with student data in horizontal format (supports up to 200+ students)
             </p>
           </div>
           
@@ -287,7 +309,7 @@ Mike Johnson,ADM003,CARPENTRY,2023/2024,DIGITAL LITERACY,25,47`;
           <div>
             <h4 className="font-medium text-blue-900">Need a template?</h4>
             <p className="text-sm text-blue-700">
-              Download our CSV template with sample data for multiple students
+              Download our horizontal CSV template with sample data for 10 students
             </p>
           </div>
           <Button variant="outline" onClick={downloadTemplate}>
@@ -298,14 +320,15 @@ Mike Johnson,ADM003,CARPENTRY,2023/2024,DIGITAL LITERACY,25,47`;
       </Card>
 
       <div className="text-sm text-gray-600 space-y-2">
-        <h4 className="font-medium">File Format Requirements:</h4>
+        <h4 className="font-medium">Horizontal Format Requirements:</h4>
         <ul className="list-disc list-inside space-y-1">
-          <li>CSV format with headers: Student Name, Admission No, Course, School Year, Unit Name, CAT Score, Exam Score</li>
-          <li>Each row contains data for one course unit</li>
-          <li>Multiple students can be included in the same file</li>
-          <li>Each student should have multiple rows (one per course unit)</li>
+          <li>CSV format with headers in the first row</li>
+          <li>Each row contains data for one complete student</li>
+          <li>Headers: Student Name, Admission No, Course, School Year, followed by CAT and Exam scores for each subject</li>
+          <li>Standard subjects: Trade Theory, Trade Practice, Communication Skills, Entrepreneurship, Mathematics, General Science, Digital Literacy</li>
           <li>CAT and Exam scores should be numbers (0-100)</li>
-          <li>Student information must be consistent across all rows for the same student</li>
+          <li>Can handle 200+ students in a single file</li>
+          <li>Each student gets one complete row with all their subject scores</li>
         </ul>
       </div>
     </div>

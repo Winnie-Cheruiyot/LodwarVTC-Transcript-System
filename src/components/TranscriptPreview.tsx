@@ -87,18 +87,18 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
               min-height: 297mm; 
               margin: 0 auto; 
               padding: 10mm;
-              font-size: 12px;
+              font-size: 14px;
             }
             .header { text-align: center; margin-bottom: 20px; }
             .logo { width: 60px; height: 60px; margin: 0 auto 10px; background: #1e3a8a; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-            .contact-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 10px; }
+            .contact-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 12px; }
             table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-            th, td { border: 1px solid #333; padding: 6px; text-align: left; font-size: 10px; }
+            th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 12px; }
             th { background-color: #1e3a8a; color: white; }
             .student-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
             .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
             .comments-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
-            .comment-box { background: #f0f9ff; padding: 8px; border-radius: 5px; font-size: 9px; }
+            .comment-box { background: #f0f9ff; padding: 10px; border-radius: 5px; font-size: 11px; }
             .total-row { background-color: #dcfce7; font-weight: bold; }
             @media print { body { margin: 0; } }
           </style>
@@ -164,42 +164,42 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
         </div>
       </Card>
 
-      <div id="transcript-content" className="bg-white p-6 rounded-lg border transcript-content" style={{ fontSize: '11px' }}>
+      <div id="transcript-content" className="bg-white p-6 rounded-lg border transcript-content" style={{ fontSize: '14px' }}>
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="flex items-center justify-between mb-3 text-xs">
+          <div className="flex items-center justify-between mb-3 text-sm">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-blue-900 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">📞</span>
+              <div className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm">📞</span>
               </div>
               <span>0723456899</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-blue-900 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">✉</span>
+              <div className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm">✉</span>
               </div>
               <span>plodwaryouth@yahoo.com</span>
             </div>
           </div>
           
           <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <span className="text-blue-900 font-bold text-xs">LVTC</span>
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+              <span className="text-blue-900 font-bold text-sm">LVTC</span>
             </div>
             <div>
-              <h1 className="text-lg font-bold text-blue-900 mb-1">
+              <h1 className="text-2xl font-bold text-blue-900 mb-1">
                 LODWAR VOCATIONAL TRAINING CENTRE
               </h1>
             </div>
           </div>
           
           <div className="bg-blue-900 text-white py-2 px-4 rounded">
-            <h2 className="text-lg font-bold">TRANSCRIPT</h2>
+            <h2 className="text-xl font-bold">TRANSCRIPT</h2>
           </div>
         </div>
 
         {/* Student Information */}
-        <div className="grid grid-cols-2 gap-6 mb-4 text-xs">
+        <div className="grid grid-cols-2 gap-6 mb-4 text-sm">
           <div>
             <div className="mb-3">
               <strong className="text-blue-900">Name of Student:</strong>
@@ -233,49 +233,49 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
         {/* Course Units Table and Grading System */}
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div className="col-span-2">
-            <table className="w-full border-collapse border border-gray-400 text-xs">
+            <table className="w-full border-collapse border border-gray-400 text-sm">
               <thead>
                 <tr className="bg-blue-900 text-white">
-                  <th className="border border-gray-400 p-2 text-left">COURSE UNIT</th>
-                  <th className="border border-gray-400 p-2 text-center">CAT</th>
-                  <th className="border border-gray-400 p-2 text-center">EXAM</th>
-                  <th className="border border-gray-400 p-2 text-center">TOTAL</th>
-                  <th className="border border-gray-400 p-2 text-center">GRADE</th>
+                  <th className="border border-gray-400 p-3 text-left">COURSE UNIT</th>
+                  <th className="border border-gray-400 p-3 text-center">CAT</th>
+                  <th className="border border-gray-400 p-3 text-center">EXAM</th>
+                  <th className="border border-gray-400 p-3 text-center">TOTAL</th>
+                  <th className="border border-gray-400 p-3 text-center">GRADE</th>
                 </tr>
               </thead>
               <tbody>
                 {data.courseUnits.map((unit, index) => (
                   <tr key={index} className="even:bg-green-50">
-                    <td className="border border-gray-400 p-2 bg-green-100">{unit.name}</td>
-                    <td className="border border-gray-400 p-2 text-center">{unit.cat}</td>
-                    <td className="border border-gray-400 p-2 text-center">{unit.exam}</td>
-                    <td className="border border-gray-400 p-2 text-center font-bold">{unit.total}</td>
-                    <td className="border border-gray-400 p-2 text-center font-bold">{unit.grade}</td>
+                    <td className="border border-gray-400 p-3 bg-green-100">{unit.name}</td>
+                    <td className="border border-gray-400 p-3 text-center">{unit.cat}</td>
+                    <td className="border border-gray-400 p-3 text-center">{unit.exam}</td>
+                    <td className="border border-gray-400 p-3 text-center font-bold">{unit.total}</td>
+                    <td className="border border-gray-400 p-3 text-center font-bold">{unit.grade}</td>
                   </tr>
                 ))}
                 <tr className="bg-green-200 total-row">
-                  <td className="border border-gray-400 p-2 font-bold">Total</td>
-                  <td className="border border-gray-400 p-2"></td>
-                  <td className="border border-gray-400 p-2"></td>
-                  <td className="border border-gray-400 p-2 text-center font-bold">{overallTotal}</td>
-                  <td className="border border-gray-400 p-2 text-center font-bold">{overallGrade}</td>
+                  <td className="border border-gray-400 p-3 font-bold">Total</td>
+                  <td className="border border-gray-400 p-3"></td>
+                  <td className="border border-gray-400 p-3"></td>
+                  <td className="border border-gray-400 p-3 text-center font-bold">{overallTotal}</td>
+                  <td className="border border-gray-400 p-3 text-center font-bold">{overallGrade}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           
           <div>
-            <div className="bg-blue-900 text-white p-2 text-center font-bold mb-2 text-xs">
+            <div className="bg-blue-900 text-white p-3 text-center font-bold mb-2 text-sm">
               GRADING SYSTEM
             </div>
-            <table className="w-full border-collapse border border-gray-400 text-xs">
+            <table className="w-full border-collapse border border-gray-400 text-sm">
               <tbody>
                 {gradeScale.map((scale, index) => (
                   <tr key={index}>
-                    <td className="border border-gray-400 p-2 text-center font-bold">
+                    <td className="border border-gray-400 p-3 text-center font-bold">
                       {scale.grade}
                     </td>
-                    <td className="border border-gray-400 p-2 text-center">
+                    <td className="border border-gray-400 p-3 text-center">
                       {scale.range}
                     </td>
                   </tr>
@@ -286,20 +286,20 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
         </div>
 
         {/* Remarks and Grade Scale */}
-        <div className="grid grid-cols-2 gap-4 mb-4 text-xs">
+        <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
           <div>
             <strong className="text-blue-900">REMARKS</strong>
-            <div className="border border-gray-300 p-2 mt-1 min-h-[40px]">
+            <div className="border border-gray-300 p-3 mt-1 min-h-[50px]">
               {overallRemarks}
             </div>
           </div>
           <div>
             <strong className="text-blue-900">GRADE SCALE</strong>
             <div className="mt-1">
-              <div className="bg-blue-900 text-white p-2 text-center font-bold mb-2 text-xs">
+              <div className="bg-blue-900 text-white p-3 text-center font-bold mb-2 text-sm">
                 GRADE SCALE
               </div>
-              <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-2 gap-2 text-sm">
                 <div>
                   <div className="flex justify-between">
                     <strong>DISTINCTION</strong>
@@ -327,17 +327,17 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
 
         {/* Comments Section */}
         <div className="grid grid-cols-3 gap-3 mt-6">
-          <div className="bg-green-100 p-3 rounded text-xs">
+          <div className="bg-green-100 p-4 rounded text-sm">
             <strong className="text-blue-900">MANAGER COMMENTS AND FEEDBACK:</strong>
-            <p className="mt-2 text-xs">{managerComments}</p>
+            <p className="mt-2 text-sm">{managerComments}</p>
             <div className="mt-6 text-center">
               <div className="border-t border-gray-400 pt-2">
-                <strong className="text-xs">MANAGER LVTC</strong>
+                <strong className="text-sm">MANAGER LVTC</strong>
               </div>
             </div>
           </div>
           
-          <div className="bg-green-100 p-3 rounded text-xs">
+          <div className="bg-green-100 p-4 rounded text-sm">
             <div className="text-center space-y-3">
               <div>
                 <strong className="text-blue-900">Closing Day:</strong>
@@ -354,12 +354,12 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
             </div>
           </div>
           
-          <div className="bg-green-100 p-3 rounded text-xs">
+          <div className="bg-green-100 p-4 rounded text-sm">
             <strong className="text-blue-900">H.O.D COMMENTS AND FEEDBACK:</strong>
-            <p className="mt-2 text-xs">{hodComments}</p>
+            <p className="mt-2 text-sm">{hodComments}</p>
             <div className="mt-6 text-center">
               <div className="border-t border-gray-400 pt-2">
-                <strong className="text-xs">H.O.D</strong>
+                <strong className="text-sm">H.O.D</strong>
               </div>
             </div>
           </div>
@@ -371,7 +371,7 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
           .transcript-content {
             box-shadow: none !important;
             border: none !important;
-            font-size: 10px !important;
+            font-size: 12px !important;
           }
           
           body * {
