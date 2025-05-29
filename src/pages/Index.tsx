@@ -20,23 +20,26 @@ const Index = () => {
           <p className="text-lg text-blue-700">
             Lodwar Vocational Training Centre
           </p>
+          <p className="text-sm text-blue-600 mt-2">
+            Generate single transcripts or batch process up to 200+ students with analytics
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
             <Card className="p-6">
-              <Tabs defaultValue="form" className="w-full">
+              <Tabs defaultValue="excel" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="form">Manual Entry</TabsTrigger>
                   <TabsTrigger value="excel">Excel Upload</TabsTrigger>
+                  <TabsTrigger value="form">Manual Entry</TabsTrigger>
                 </TabsList>
-                
-                <TabsContent value="form" className="mt-6">
-                  <TranscriptForm onSubmit={setTranscriptData} />
-                </TabsContent>
                 
                 <TabsContent value="excel" className="mt-6">
                   <ExcelUploader onDataParsed={setTranscriptData} />
+                </TabsContent>
+                
+                <TabsContent value="form" className="mt-6">
+                  <TranscriptForm onSubmit={setTranscriptData} />
                 </TabsContent>
               </Tabs>
             </Card>
