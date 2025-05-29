@@ -81,26 +81,109 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
         <head>
           <title>Transcript - ${data.studentName}</title>
           <style>
-            body { font-family: Arial, sans-serif; margin: 0; }
+            body { font-family: 'Georgia', serif; margin: 0; background: white; }
             .transcript { 
               width: 210mm; 
               min-height: 297mm; 
               margin: 0 auto; 
-              padding: 10mm;
+              padding: 15mm;
               font-size: 14px;
+              line-height: 1.4;
+              background: white;
             }
-            .header { text-align: center; margin-bottom: 20px; }
-            .logo { width: 60px; height: 60px; margin: 0 auto 10px; background: #1e3a8a; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-            .contact-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 12px; }
-            table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-            th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 12px; }
-            th { background-color: #1e3a8a; color: white; }
-            .student-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
-            .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
-            .comments-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
-            .comment-box { background: #f0f9ff; padding: 10px; border-radius: 5px; font-size: 11px; }
-            .total-row { background-color: #dcfce7; font-weight: bold; }
-            @media print { body { margin: 0; } }
+            .header { text-align: center; margin-bottom: 25px; }
+            .logo { 
+              width: 80px; 
+              height: 80px; 
+              margin: 0 auto 15px; 
+              background: linear-gradient(135deg, #1e40af, #3b82f6); 
+              border-radius: 50%; 
+              color: white; 
+              display: flex; 
+              align-items: center; 
+              justify-content: center; 
+              font-weight: bold; 
+              font-size: 18px;
+              box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+            }
+            .contact-info { 
+              display: flex; 
+              justify-content: space-between; 
+              margin-bottom: 20px; 
+              font-size: 13px; 
+              color: #1e40af;
+              font-weight: 500;
+            }
+            table { 
+              width: 100%; 
+              border-collapse: collapse; 
+              margin: 20px 0; 
+              box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+              border-radius: 8px;
+              overflow: hidden;
+            }
+            th, td { 
+              border: 1px solid #e5e7eb; 
+              padding: 12px; 
+              text-align: left; 
+              font-size: 13px; 
+            }
+            th { 
+              background: linear-gradient(135deg, #1e40af, #3b82f6); 
+              color: white; 
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            .student-info { 
+              display: grid; 
+              grid-template-columns: 1fr 1fr; 
+              gap: 30px; 
+              margin-bottom: 20px; 
+              background: #f8fafc;
+              padding: 20px;
+              border-radius: 12px;
+              border: 2px solid #e2e8f0;
+            }
+            .comments-section { 
+              display: grid; 
+              grid-template-columns: 1fr 1fr 1fr; 
+              gap: 15px; 
+              margin-top: 20px; 
+            }
+            .comment-box { 
+              background: linear-gradient(135deg, #f0f9ff, #e0f2fe); 
+              padding: 15px; 
+              border-radius: 12px; 
+              font-size: 12px; 
+              border: 1px solid #0ea5e9;
+              box-shadow: 0 2px 4px rgba(14, 165, 233, 0.1);
+            }
+            .total-row { 
+              background: linear-gradient(135deg, #dcfce7, #bbf7d0); 
+              font-weight: bold; 
+            }
+            .grade-system {
+              background: linear-gradient(135deg, #fef3c7, #fde68a);
+              border-radius: 12px;
+              overflow: hidden;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+            .watermark {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%) rotate(-45deg);
+              font-size: 120px;
+              color: rgba(30, 64, 175, 0.05);
+              font-weight: bold;
+              z-index: -1;
+              pointer-events: none;
+            }
+            @media print { 
+              body { margin: 0; } 
+              .watermark { display: block; }
+            }
           </style>
         </head>
         <body>
@@ -115,251 +198,274 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-blue-900">Transcript Preview</h2>
-        <div className="flex gap-2">
-          <Button onClick={handlePrint} variant="outline" size="sm">
+        <h2 className="text-2xl font-bold text-blue-900 flex items-center gap-2">
+          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+            <span className="text-white text-sm">📜</span>
+          </div>
+          Transcript Preview
+        </h2>
+        <div className="flex gap-3">
+          <Button onClick={handlePrint} variant="outline" size="sm" className="hover:bg-blue-50">
             <Printer className="w-4 h-4 mr-2" />
             Print
           </Button>
-          <Button onClick={handleDownload} variant="outline" size="sm">
+          <Button onClick={handleDownload} className="bg-blue-600 hover:bg-blue-700" size="sm">
             <Download className="w-4 h-4 mr-2" />
             Download
           </Button>
         </div>
       </div>
 
-      {/* Editable Fields */}
-      <Card className="p-4 bg-blue-50 mb-6">
-        <h3 className="font-medium text-blue-900 mb-3">Editable Fields</h3>
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <Label htmlFor="closingDay">Closing Day</Label>
+      {/* Enhanced Editable Fields */}
+      <Card className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 mb-6">
+        <h3 className="font-semibold text-blue-900 mb-4 flex items-center gap-2">
+          <span className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs">✏</span>
+          Editable Fields
+        </h3>
+        <div className="grid grid-cols-3 gap-6">
+          <div className="space-y-2">
+            <Label htmlFor="closingDay" className="text-blue-800 font-medium">Closing Day</Label>
             <Input
               id="closingDay"
               value={editableFields.closingDay}
               onChange={(e) => setEditableFields({...editableFields, closingDay: e.target.value})}
               placeholder="e.g., 15th December 2024"
+              className="border-blue-200 focus:border-blue-400"
             />
           </div>
-          <div>
-            <Label htmlFor="openingDay">Opening Day</Label>
+          <div className="space-y-2">
+            <Label htmlFor="openingDay" className="text-blue-800 font-medium">Opening Day</Label>
             <Input
               id="openingDay"
               value={editableFields.openingDay}
               onChange={(e) => setEditableFields({...editableFields, openingDay: e.target.value})}
               placeholder="e.g., 8th January 2025"
+              className="border-blue-200 focus:border-blue-400"
             />
           </div>
-          <div>
-            <Label htmlFor="feeBalance">Fee Balance</Label>
+          <div className="space-y-2">
+            <Label htmlFor="feeBalance" className="text-blue-800 font-medium">Fee Balance</Label>
             <Input
               id="feeBalance"
               value={editableFields.feeBalance}
               onChange={(e) => setEditableFields({...editableFields, feeBalance: e.target.value})}
               placeholder="e.g., KSH 0"
+              className="border-blue-200 focus:border-blue-400"
             />
           </div>
         </div>
       </Card>
 
-      <div id="transcript-content" className="bg-white p-6 rounded-lg border transcript-content" style={{ fontSize: '14px' }}>
-        {/* Header */}
-        <div className="text-center mb-6">
-          <div className="flex items-center justify-between mb-3 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center">
+      <div id="transcript-content" className="bg-white p-8 rounded-xl border-2 border-blue-100 transcript-content shadow-xl relative overflow-hidden" style={{ fontSize: '15px', fontFamily: 'Georgia, serif' }}>
+        {/* Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
+          <span className="text-8xl font-bold text-blue-900 transform rotate-45">LVTC</span>
+        </div>
+
+        {/* Enhanced Header */}
+        <div className="text-center mb-8 relative z-10">
+          <div className="flex items-center justify-between mb-4 text-sm">
+            <div className="flex items-center gap-3 bg-blue-50 px-4 py-2 rounded-full">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white text-sm">📞</span>
               </div>
-              <span>0723456899</span>
+              <span className="font-semibold text-blue-800">0723456899</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center">
+            <div className="flex items-center gap-3 bg-blue-50 px-4 py-2 rounded-full">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white text-sm">✉</span>
               </div>
-              <span>plodwaryouth@yahoo.com</span>
+              <span className="font-semibold text-blue-800">plodwaryouth@yahoo.com</span>
             </div>
           </div>
           
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-              <span className="text-blue-900 font-bold text-sm">LVTC</span>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-xl">
+              <span className="text-white font-bold text-lg">LVTC</span>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-blue-900 mb-1">
+              <h1 className="text-3xl font-bold text-blue-900 mb-2 tracking-wide">
                 LODWAR VOCATIONAL TRAINING CENTRE
               </h1>
+              <div className="h-1 w-32 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto rounded-full"></div>
             </div>
           </div>
           
-          <div className="bg-blue-900 text-white py-2 px-4 rounded">
-            <h2 className="text-xl font-bold">TRANSCRIPT</h2>
+          <div className="bg-gradient-to-r from-blue-800 to-blue-900 text-white py-4 px-8 rounded-xl shadow-lg">
+            <h2 className="text-2xl font-bold tracking-widest">OFFICIAL TRANSCRIPT</h2>
           </div>
         </div>
 
-        {/* Student Information */}
-        <div className="grid grid-cols-2 gap-6 mb-4 text-sm">
-          <div>
-            <div className="mb-3">
-              <strong className="text-blue-900">Name of Student:</strong>
-              <div className="border-b border-gray-300 pb-1 mt-1">
+        {/* Enhanced Student Information */}
+        <div className="grid grid-cols-2 gap-8 mb-6 text-base relative z-10">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+            <div className="mb-4">
+              <strong className="text-blue-900 text-sm uppercase tracking-wide">Name of Student:</strong>
+              <div className="border-b-2 border-blue-300 pb-2 mt-2 text-lg font-semibold text-gray-800">
                 {data.studentName}
               </div>
             </div>
             <div>
-              <strong className="text-blue-900">COURSE:</strong>
-              <div className="border-b border-gray-300 pb-1 mt-1">
+              <strong className="text-blue-900 text-sm uppercase tracking-wide">Course:</strong>
+              <div className="border-b-2 border-blue-300 pb-2 mt-2 text-lg font-semibold text-gray-800">
                 {data.course}
               </div>
             </div>
           </div>
-          <div>
-            <div className="mb-3">
-              <strong className="text-blue-900">ADMISSION NO:</strong>
-              <div className="border-b border-gray-300 pb-1 mt-1">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+            <div className="mb-4">
+              <strong className="text-blue-900 text-sm uppercase tracking-wide">Admission No:</strong>
+              <div className="border-b-2 border-blue-300 pb-2 mt-2 text-lg font-semibold text-gray-800">
                 {data.admissionNo}
               </div>
             </div>
             <div>
-              <strong className="text-blue-900">School Year:</strong>
-              <div className="border-b border-gray-300 pb-1 mt-1">
+              <strong className="text-blue-900 text-sm uppercase tracking-wide">School Year:</strong>
+              <div className="border-b-2 border-blue-300 pb-2 mt-2 text-lg font-semibold text-gray-800">
                 {data.schoolYear}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Course Units Table and Grading System */}
-        <div className="grid grid-cols-3 gap-4 mb-4">
+        {/* Enhanced Course Units Table and Grading System */}
+        <div className="grid grid-cols-3 gap-6 mb-6 relative z-10">
           <div className="col-span-2">
-            <table className="w-full border-collapse border border-gray-400 text-sm">
-              <thead>
-                <tr className="bg-blue-900 text-white">
-                  <th className="border border-gray-400 p-3 text-left">COURSE UNIT</th>
-                  <th className="border border-gray-400 p-3 text-center">CAT</th>
-                  <th className="border border-gray-400 p-3 text-center">EXAM</th>
-                  <th className="border border-gray-400 p-3 text-center">TOTAL</th>
-                  <th className="border border-gray-400 p-3 text-center">GRADE</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.courseUnits.map((unit, index) => (
-                  <tr key={index} className="even:bg-green-50">
-                    <td className="border border-gray-400 p-3 bg-green-100">{unit.name}</td>
-                    <td className="border border-gray-400 p-3 text-center">{unit.cat}</td>
-                    <td className="border border-gray-400 p-3 text-center">{unit.exam}</td>
-                    <td className="border border-gray-400 p-3 text-center font-bold">{unit.total}</td>
-                    <td className="border border-gray-400 p-3 text-center font-bold">{unit.grade}</td>
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-200">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="bg-gradient-to-r from-blue-800 to-blue-900 text-white">
+                    <th className="p-4 text-left font-semibold tracking-wide">COURSE UNIT</th>
+                    <th className="p-4 text-center font-semibold tracking-wide">CAT</th>
+                    <th className="p-4 text-center font-semibold tracking-wide">EXAM</th>
+                    <th className="p-4 text-center font-semibold tracking-wide">TOTAL</th>
+                    <th className="p-4 text-center font-semibold tracking-wide">GRADE</th>
                   </tr>
-                ))}
-                <tr className="bg-green-200 total-row">
-                  <td className="border border-gray-400 p-3 font-bold">Total</td>
-                  <td className="border border-gray-400 p-3"></td>
-                  <td className="border border-gray-400 p-3"></td>
-                  <td className="border border-gray-400 p-3 text-center font-bold">{overallTotal}</td>
-                  <td className="border border-gray-400 p-3 text-center font-bold">{overallGrade}</td>
-                </tr>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {data.courseUnits.map((unit, index) => (
+                    <tr key={index} className={index % 2 === 0 ? "bg-blue-50" : "bg-white"}>
+                      <td className="p-4 bg-gradient-to-r from-green-100 to-green-50 font-medium text-gray-800">{unit.name}</td>
+                      <td className="p-4 text-center font-medium">{unit.cat}</td>
+                      <td className="p-4 text-center font-medium">{unit.exam}</td>
+                      <td className="p-4 text-center font-bold text-blue-900">{unit.total}</td>
+                      <td className="p-4 text-center font-bold text-blue-900">{unit.grade}</td>
+                    </tr>
+                  ))}
+                  <tr className="bg-gradient-to-r from-green-200 to-green-300 border-t-2 border-green-400">
+                    <td className="p-4 font-bold text-green-900">TOTAL</td>
+                    <td className="p-4"></td>
+                    <td className="p-4"></td>
+                    <td className="p-4 text-center font-bold text-green-900 text-lg">{overallTotal}</td>
+                    <td className="p-4 text-center font-bold text-green-900 text-lg">{overallGrade}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           
-          <div>
-            <div className="bg-blue-900 text-white p-3 text-center font-bold mb-2 text-sm">
-              GRADING SYSTEM
-            </div>
-            <table className="w-full border-collapse border border-gray-400 text-sm">
-              <tbody>
-                {gradeScale.map((scale, index) => (
-                  <tr key={index}>
-                    <td className="border border-gray-400 p-3 text-center font-bold">
-                      {scale.grade}
-                    </td>
-                    <td className="border border-gray-400 p-3 text-center">
-                      {scale.range}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Remarks and Grade Scale */}
-        <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
-          <div>
-            <strong className="text-blue-900">REMARKS</strong>
-            <div className="border border-gray-300 p-3 mt-1 min-h-[50px]">
-              {overallRemarks}
-            </div>
-          </div>
-          <div>
-            <strong className="text-blue-900">GRADE SCALE</strong>
-            <div className="mt-1">
-              <div className="bg-blue-900 text-white p-3 text-center font-bold mb-2 text-sm">
-                GRADE SCALE
+          <div className="space-y-4">
+            <div className="bg-gradient-to-br from-amber-100 to-yellow-100 rounded-xl overflow-hidden shadow-lg border border-amber-200">
+              <div className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white p-4 text-center font-bold tracking-wide">
+                GRADING SYSTEM
               </div>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div>
-                  <div className="flex justify-between">
-                    <strong>DISTINCTION</strong>
-                    <span>451-600</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <strong>PASS</strong>
-                    <span>200-300</span>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <strong>CREDIT</strong>
-                    <span>301-450</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <strong>FAIL</strong>
-                    <span>0-199</span>
-                  </div>
-                </div>
-              </div>
+              <table className="w-full">
+                <tbody>
+                  {gradeScale.map((scale, index) => (
+                    <tr key={index} className={index % 2 === 0 ? "bg-amber-50" : "bg-white"}>
+                      <td className="p-3 text-center font-bold text-amber-800">
+                        {scale.grade}
+                      </td>
+                      <td className="p-3 text-center font-semibold text-amber-700">
+                        {scale.range}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
 
-        {/* Comments Section */}
-        <div className="grid grid-cols-3 gap-3 mt-6">
-          <div className="bg-green-100 p-4 rounded text-sm">
-            <strong className="text-blue-900">MANAGER COMMENTS AND FEEDBACK:</strong>
-            <p className="mt-2 text-sm">{managerComments}</p>
+        {/* Enhanced Remarks and Grade Scale */}
+        <div className="grid grid-cols-2 gap-6 mb-6 relative z-10">
+          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-xl border border-purple-200">
+            <strong className="text-purple-900 text-sm uppercase tracking-wide">Academic Remarks</strong>
+            <div className="border border-purple-200 p-4 mt-3 min-h-[80px] rounded-lg bg-white">
+              <p className="text-gray-800 font-medium leading-relaxed">{overallRemarks}</p>
+            </div>
+          </div>
+          <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-xl border border-emerald-200">
+            <strong className="text-emerald-900 text-sm uppercase tracking-wide">Overall Grade Scale</strong>
+            <div className="mt-3">
+              <div className="bg-gradient-to-r from-emerald-700 to-green-700 text-white p-3 text-center font-bold mb-3 rounded-lg tracking-wide">
+                PERFORMANCE SCALE
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="space-y-2">
+                  <div className="flex justify-between bg-emerald-100 p-2 rounded">
+                    <strong className="text-emerald-800">DISTINCTION</strong>
+                    <span className="text-emerald-700">451-600</span>
+                  </div>
+                  <div className="flex justify-between bg-emerald-100 p-2 rounded">
+                    <strong className="text-emerald-800">PASS</strong>
+                    <span className="text-emerald-700">200-300</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between bg-emerald-100 p-2 rounded">
+                    <strong className="text-emerald-800">CREDIT</strong>
+                    <span className="text-emerald-700">301-450</span>
+                  </div>
+                  <div className="flex justify-between bg-emerald-100 p-2 rounded">
+                    <strong className="text-emerald-800">FAIL</strong>
+                    <span className="text-emerald-700">0-199</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Enhanced Comments Section */}
+        <div className="grid grid-cols-3 gap-4 mt-8 relative z-10">
+          <div className="bg-gradient-to-br from-blue-100 to-cyan-100 p-5 rounded-xl border border-blue-200 shadow-md">
+            <strong className="text-blue-900 text-sm uppercase tracking-wide">Manager Comments & Feedback:</strong>
+            <p className="mt-3 text-sm text-gray-700 leading-relaxed">{managerComments}</p>
             <div className="mt-6 text-center">
-              <div className="border-t border-gray-400 pt-2">
-                <strong className="text-sm">MANAGER LVTC</strong>
+              <div className="border-t-2 border-blue-300 pt-3">
+                <strong className="text-sm text-blue-900 uppercase tracking-wide">Manager LVTC</strong>
+                <div className="w-24 h-0.5 bg-blue-600 mx-auto mt-2"></div>
               </div>
             </div>
           </div>
           
-          <div className="bg-green-100 p-4 rounded text-sm">
-            <div className="text-center space-y-3">
+          <div className="bg-gradient-to-br from-green-100 to-emerald-100 p-5 rounded-xl border border-green-200 shadow-md">
+            <div className="text-center space-y-4">
               <div>
-                <strong className="text-blue-900">Closing Day:</strong>
-                <div className="border-b border-gray-300 mt-1 pb-1">{editableFields.closingDay}</div>
+                <strong className="text-green-900 text-sm uppercase tracking-wide">Closing Day:</strong>
+                <div className="border-b-2 border-green-300 mt-2 pb-1 font-semibold text-gray-800">{editableFields.closingDay}</div>
               </div>
               <div>
-                <strong className="text-blue-900">Opening Day:</strong>
-                <div className="border-b border-gray-300 mt-1 pb-1">{editableFields.openingDay}</div>
+                <strong className="text-green-900 text-sm uppercase tracking-wide">Opening Day:</strong>
+                <div className="border-b-2 border-green-300 mt-2 pb-1 font-semibold text-gray-800">{editableFields.openingDay}</div>
               </div>
               <div>
-                <strong className="text-blue-900">Fee Balance:</strong>
-                <div className="border-b border-gray-300 mt-1 pb-1">{editableFields.feeBalance}</div>
+                <strong className="text-green-900 text-sm uppercase tracking-wide">Fee Balance:</strong>
+                <div className="border-b-2 border-green-300 mt-2 pb-1 font-semibold text-gray-800">{editableFields.feeBalance}</div>
               </div>
             </div>
           </div>
           
-          <div className="bg-green-100 p-4 rounded text-sm">
-            <strong className="text-blue-900">H.O.D COMMENTS AND FEEDBACK:</strong>
-            <p className="mt-2 text-sm">{hodComments}</p>
+          <div className="bg-gradient-to-br from-purple-100 to-indigo-100 p-5 rounded-xl border border-purple-200 shadow-md">
+            <strong className="text-purple-900 text-sm uppercase tracking-wide">H.O.D Comments & Feedback:</strong>
+            <p className="mt-3 text-sm text-gray-700 leading-relaxed">{hodComments}</p>
             <div className="mt-6 text-center">
-              <div className="border-t border-gray-400 pt-2">
-                <strong className="text-sm">H.O.D</strong>
+              <div className="border-t-2 border-purple-300 pt-3">
+                <strong className="text-sm text-purple-900 uppercase tracking-wide">Head of Department</strong>
+                <div className="w-24 h-0.5 bg-purple-600 mx-auto mt-2"></div>
               </div>
             </div>
           </div>
@@ -371,7 +477,9 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
           .transcript-content {
             box-shadow: none !important;
             border: none !important;
-            font-size: 12px !important;
+            font-size: 13px !important;
+            margin: 0;
+            padding: 10mm;
           }
           
           body * {
@@ -388,7 +496,11 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
             top: 0;
             width: 100%;
             margin: 0;
-            padding: 5mm;
+            padding: 10mm;
+          }
+          
+          .watermark {
+            display: block;
           }
         }
       `}</style>
