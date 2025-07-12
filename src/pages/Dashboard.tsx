@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Analytics from "@/components/Analytics";
 import { AnalyticsData, TranscriptData } from "@/types/transcript";
 import { BarChart3, TrendingUp, Users, FileText } from "lucide-react";
@@ -20,7 +19,22 @@ const Dashboard = () => {
       { name: "John Smith", admissionNo: "LVT002", course: "Plumbing", total: 92, grade: "A" },
       { name: "Mary Johnson", admissionNo: "LVT003", course: "Carpentry", total: 89, grade: "B" },
       { name: "Peter Wilson", admissionNo: "LVT004", course: "Masonry", total: 87, grade: "B" },
-      { name: "Sarah Brown", admissionNo: "LVT005", course: "Tailoring", total: 85, grade: "B" }
+      { name: "Sarah Brown", admissionNo: "LVT005", course: "Tailoring", total: 85, grade: "B" },
+      { name: "David Miller", admissionNo: "LVT006", course: "Electrical Installation", total: 88, grade: "B" },
+      { name: "Lisa Anderson", admissionNo: "LVT007", course: "Computer Studies", total: 94, grade: "A" },
+      { name: "Michael Davis", admissionNo: "LVT008", course: "Plumbing", total: 83, grade: "B" },
+      { name: "Jennifer White", admissionNo: "LVT009", course: "Carpentry", total: 81, grade: "B" },
+      { name: "Robert Taylor", admissionNo: "LVT010", course: "Masonry", total: 79, grade: "C" },
+      { name: "Emma Wilson", admissionNo: "LVT011", course: "Tailoring", total: 82, grade: "B" },
+      { name: "James Moore", admissionNo: "LVT012", course: "Computer Studies", total: 90, grade: "A" },
+      { name: "Olivia Clark", admissionNo: "LVT013", course: "Electrical Installation", total: 86, grade: "B" },
+      { name: "William Lee", admissionNo: "LVT014", course: "Plumbing", total: 78, grade: "C" },
+      { name: "Sophia Garcia", admissionNo: "LVT015", course: "Carpentry", total: 84, grade: "B" },
+      { name: "Alexander Martin", admissionNo: "LVT016", course: "Masonry", total: 77, grade: "C" },
+      { name: "Isabella Rodriguez", admissionNo: "LVT017", course: "Tailoring", total: 80, grade: "B" },
+      { name: "Benjamin Hall", admissionNo: "LVT018", course: "Computer Studies", total: 87, grade: "B" },
+      { name: "Charlotte Young", admissionNo: "LVT019", course: "Electrical Installation", total: 91, grade: "A" },
+      { name: "Noah King", admissionNo: "LVT020", course: "Plumbing", total: 75, grade: "C" }
     ],
     courseAnalytics: [
       { courseName: "Electrical Installation", studentCount: 32, averageScore: 82.3, topScore: 95, passRate: 87.5 },
@@ -49,55 +63,7 @@ const Dashboard = () => {
         </div>
 
         <div className="mb-6">
-          <Tabs defaultValue="analytics" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="analytics" className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4" />
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value="students" className="flex items-center gap-2">
-                <Users className="w-4 h-4" />
-                Students
-              </TabsTrigger>
-              <TabsTrigger value="reports" className="flex items-center gap-2">
-                <FileText className="w-4 h-4" />
-                Reports
-              </TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="analytics" className="mt-6">
-              <Analytics data={analyticsData} />
-            </TabsContent>
-            
-            <TabsContent value="students" className="mt-6">
-              <Card className="p-6">
-                <h3 className="text-xl font-semibold text-blue-900 mb-4">Student Management</h3>
-                <p className="text-gray-600 mb-4">
-                  Detailed student performance tracking and individual analytics coming soon.
-                </p>
-                <Button variant="outline">
-                  View All Students
-                </Button>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="reports" className="mt-6">
-              <Card className="p-6">
-                <h3 className="text-xl font-semibold text-blue-900 mb-4">Generate Reports</h3>
-                <p className="text-gray-600 mb-4">
-                  Export detailed performance reports and analytics data.
-                </p>
-                <div className="flex gap-4">
-                  <Button>
-                    Export Performance Report
-                  </Button>
-                  <Button variant="outline">
-                    Export Grade Summary
-                  </Button>
-                </div>
-              </Card>
-            </TabsContent>
-          </Tabs>
+          <Analytics data={analyticsData} />
         </div>
       </div>
     </div>
