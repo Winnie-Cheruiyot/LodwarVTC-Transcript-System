@@ -93,18 +93,17 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
             }
             .header { text-align: center; margin-bottom: 25px; }
             .logo { 
-              width: 80px; 
-              height: 80px; 
+              width: 120px; 
+              height: 120px; 
               margin: 0 auto 15px; 
-              background: linear-gradient(135deg, #1e40af, #3b82f6); 
               border-radius: 50%; 
-              color: white; 
-              display: flex; 
-              align-items: center; 
-              justify-content: center; 
-              font-weight: bold; 
-              font-size: 18px;
-              box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+              overflow: hidden;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }
+            .logo img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
             }
             .contact-info { 
               display: flex; 
@@ -282,8 +281,12 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
           </div>
           
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-xl">
-              <span className="text-white font-bold text-lg">LVTC</span>
+            <div className="w-32 h-32 rounded-full overflow-hidden shadow-xl border-4 border-white">
+              <img 
+                src="/lovable-uploads/3ca30da4-b80f-4572-9c44-99d152c62c59.png" 
+                alt="Lodwar Vocational Training Centre Logo" 
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-blue-900 mb-2 tracking-wide">
