@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +27,7 @@ const TranscriptForm = ({ onSubmit }: TranscriptFormProps) => {
     { name: "MATHEMATICS", cat: 0, exam: 0, total: 0, grade: "" },
     { name: "GENERAL SCIENCE", cat: 0, exam: 0, total: 0, grade: "" },
     { name: "DIGITAL LITERACY", cat: 0, exam: 0, total: 0, grade: "" },
+    { name: "LIFE SKILLS", cat: 0, exam: 0, total: 0, grade: "" },
   ]);
 
   const calculateGrade = (total: number): string => {
