@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Printer, Download } from "lucide-react";
+import { Printer, Download, Edit } from "lucide-react";
 import { BatchTranscriptData, TranscriptData } from "@/types/transcript";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -13,11 +13,12 @@ interface BatchTranscriptPreviewProps {
 }
 
 const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
-  const [editableFields, setEditableFields] = useState({
+  const [globalFields, setGlobalFields] = useState({
     closingDay: "",
-    openingDay: "",
-    feeBalance: ""
+    openingDay: ""
   });
+
+  const [studentFeeBalances, setStudentFeeBalances] = useState<{[key: string]: string}>({});
 
   const calculateOverallGrade = (total: number): string => {
     if (total >= 420) return "DISTINCTION";
@@ -35,15 +36,25 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
 
   const enhanceStudentData = (student: TranscriptData): TranscriptData => {
     const overallTotal = student.courseUnits.reduce((sum, unit) => sum + unit.total, 0);
+    const studentKey = `${student.admissionNo}-${student.studentName}`;
+    
     return {
       ...student,
       overallTotal,
       overallGrade: calculateOverallGrade(overallTotal),
       overallRemarks: calculateOverallRemarks(overallTotal),
-      closingDay: editableFields.closingDay,
-      openingDay: editableFields.openingDay,
-      feeBalance: editableFields.feeBalance
+      closingDay: globalFields.closingDay,
+      openingDay: globalFields.openingDay,
+      feeBalance: studentFeeBalances[studentKey] || student.feeBalance || ""
     };
+  };
+
+  const updateStudentFeeBalance = (admissionNo: string, studentName: string, feeBalance: string) => {
+    const studentKey = `${admissionNo}-${studentName}`;
+    setStudentFeeBalances(prev => ({
+      ...prev,
+      [studentKey]: feeBalance
+    }));
   };
 
   const handlePrintAll = () => {
@@ -68,7 +79,19 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
             }
             .transcript-page:last-child { page-break-after: avoid; }
             .header { text-align: center; margin-bottom: 20px; }
-            .logo { width: 60px; height: 60px; margin: 0 auto 10px; background: #1e3a8a; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+            .logo { 
+              width: 80px; 
+              height: 80px; 
+              margin: 0 auto 10px; 
+              border-radius: 50%; 
+              overflow: hidden;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }
+            .logo img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
             .contact-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 10px; }
             .contact-item { display: flex; align-items: center; gap: 5px; }
             table { width: 100%; border-collapse: collapse; margin: 15px 0; }
@@ -101,7 +124,9 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                 </div>
                 
                 <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
-                  <div class="logo">LVTC</div>
+                  <div class="logo">
+                    <img src="/lovable-uploads/3ca30da4-b80f-4572-9c44-99d152c62c59.png" alt="LVTC Logo" />
+                  </div>
                   <div>
                     <h1 style="margin: 0; font-size: 18px; color: #1e3a8a;">LODWAR VOCATIONAL TRAINING CENTRE</h1>
                   </div>
@@ -279,16 +304,16 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
           </div>
         </div>
 
-        {/* Editable Fields */}
+        {/* Global Fields */}
         <Card className="p-4 bg-blue-50">
           <h3 className="font-medium text-blue-900 mb-3">Global Settings (applies to all transcripts)</h3>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="closingDay">Closing Day</Label>
               <Input
                 id="closingDay"
-                value={editableFields.closingDay}
-                onChange={(e) => setEditableFields({...editableFields, closingDay: e.target.value})}
+                value={globalFields.closingDay}
+                onChange={(e) => setGlobalFields({...globalFields, closingDay: e.target.value})}
                 placeholder="e.g., 15th December 2024"
               />
             </div>
@@ -296,26 +321,48 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
               <Label htmlFor="openingDay">Opening Day</Label>
               <Input
                 id="openingDay"
-                value={editableFields.openingDay}
-                onChange={(e) => setEditableFields({...editableFields, openingDay: e.target.value})}
+                value={globalFields.openingDay}
+                onChange={(e) => setGlobalFields({...globalFields, openingDay: e.target.value})}
                 placeholder="e.g., 8th January 2025"
               />
             </div>
-            <div>
-              <Label htmlFor="feeBalance">Fee Balance</Label>
-              <Input
-                id="feeBalance"
-                value={editableFields.feeBalance}
-                onChange={(e) => setEditableFields({...editableFields, feeBalance: e.target.value})}
-                placeholder="e.g., KSH 0"
-              />
+          </div>
+        </Card>
+
+        {/* Individual Student Fee Balances */}
+        <Card className="p-4 bg-green-50">
+          <h3 className="font-medium text-green-900 mb-3 flex items-center gap-2">
+            <Edit className="w-4 h-4" />
+            Individual Fee Balances
+          </h3>
+          <div className="max-h-80 overflow-y-auto">
+            <div className="grid gap-3">
+              {data.students.map((student, index) => {
+                const studentKey = `${student.admissionNo}-${student.studentName}`;
+                const enhancedStudent = enhanceStudentData(student);
+                return (
+                  <div key={index} className="grid grid-cols-4 gap-3 items-center p-3 bg-white rounded border">
+                    <div className="text-sm font-medium">{student.studentName}</div>
+                    <div className="text-sm text-gray-600">{student.admissionNo}</div>
+                    <div className="text-sm text-gray-600">{student.course}</div>
+                    <div>
+                      <Input
+                        value={studentFeeBalances[studentKey] || student.feeBalance || ""}
+                        onChange={(e) => updateStudentFeeBalance(student.admissionNo, student.studentName, e.target.value)}
+                        placeholder="e.g., KSH 0"
+                        className="text-sm"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </Card>
 
         {/* Student List Preview */}
         <div>
-          <h3 className="font-medium text-blue-900 mb-3">Students to be printed:</h3>
+          <h3 className="font-medium text-blue-900 mb-3">Students Summary:</h3>
           <div className="max-h-60 overflow-y-auto">
             <table className="w-full border-collapse border border-gray-300">
               <thead>
@@ -325,6 +372,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                   <th className="border border-gray-300 p-2 text-left">Course</th>
                   <th className="border border-gray-300 p-2 text-center">Total Score</th>
                   <th className="border border-gray-300 p-2 text-center">Grade</th>
+                  <th className="border border-gray-300 p-2 text-center">Fee Balance</th>
                 </tr>
               </thead>
               <tbody>
@@ -337,6 +385,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                       <td className="border border-gray-300 p-2">{student.course}</td>
                       <td className="border border-gray-300 p-2 text-center font-bold">{enhancedStudent.overallTotal}</td>
                       <td className="border border-gray-300 p-2 text-center font-bold">{enhancedStudent.overallGrade}</td>
+                      <td className="border border-gray-300 p-2 text-center text-sm">{enhancedStudent.feeBalance || 'Not set'}</td>
                     </tr>
                   );
                 })}
