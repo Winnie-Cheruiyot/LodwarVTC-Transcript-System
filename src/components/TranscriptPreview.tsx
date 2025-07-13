@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -87,14 +86,14 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
               min-height: 297mm; 
               margin: 0 auto; 
               padding: 12mm;
-              font-size: 12px;
+              font-size: 11px;
               line-height: 1.3;
               background: white;
             }
             .header { text-align: center; margin-bottom: 20px; }
             .logo { 
-              width: 100px; 
-              height: 100px; 
+              width: 60px; 
+              height: 60px; 
               margin: 0 auto 10px; 
               border-radius: 50%; 
               overflow: hidden;
@@ -109,7 +108,7 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
               display: flex; 
               justify-content: space-between; 
               margin-bottom: 15px; 
-              font-size: 11px; 
+              font-size: 10px; 
               color: #1e40af;
               font-weight: 500;
             }
@@ -123,9 +122,9 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
             }
             th, td { 
               border: 1px solid #e5e7eb; 
-              padding: 8px; 
+              padding: 6px; 
               text-align: left; 
-              font-size: 11px; 
+              font-size: 10px; 
             }
             th { 
               background: linear-gradient(135deg, #1e40af, #3b82f6); 
@@ -152,9 +151,9 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
             }
             .comment-box { 
               background: linear-gradient(135deg, #f0f9ff, #e0f2fe); 
-              padding: 10px; 
+              padding: 8px; 
               border-radius: 12px; 
-              font-size: 10px; 
+              font-size: 9px; 
               border: 1px solid #0ea5e9;
               box-shadow: 0 2px 4px rgba(14, 165, 233, 0.1);
             }
@@ -173,7 +172,7 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
               top: 50%;
               left: 50%;
               transform: translate(-50%, -50%) rotate(-45deg);
-              font-size: 100px;
+              font-size: 80px;
               color: rgba(30, 64, 175, 0.05);
               font-weight: bold;
               z-index: -1;
@@ -257,23 +256,23 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
         </div>
       </Card>
 
-      <div id="transcript-content" className="bg-white p-6 rounded-xl border-2 border-blue-100 transcript-content shadow-xl relative overflow-hidden" style={{ fontSize: '13px', fontFamily: 'Georgia, serif' }}>
+      <div id="transcript-content" className="bg-white p-6 rounded-xl border-2 border-blue-100 transcript-content shadow-xl relative overflow-hidden" style={{ fontSize: '12px', fontFamily: 'Georgia, serif' }}>
         {/* Watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
-          <span className="text-6xl font-bold text-blue-900 transform rotate-45">LVTC</span>
+          <span className="text-5xl font-bold text-blue-900 transform rotate-45">LVTC</span>
         </div>
 
         {/* Enhanced Header */}
         <div className="text-center mb-6 relative z-10">
           <div className="flex items-center justify-between mb-3 text-xs">
             <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white text-xs">📞</span>
               </div>
               <span className="font-semibold text-blue-800">0723456899</span>
             </div>
             <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white text-xs">✉</span>
               </div>
               <span className="font-semibold text-blue-800">plodwaryouth@yahoo.com</span>
@@ -281,7 +280,7 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
           </div>
           
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-24 h-24 rounded-full overflow-hidden shadow-xl border-4 border-white">
+            <div className="w-16 h-16 rounded-full overflow-hidden shadow-xl border-4 border-white">
               <img 
                 src="/lovable-uploads/70730614-901e-4508-b88c-1a721ef8e88b.png" 
                 alt="Lodwar Vocational Training Centre Logo" 
@@ -289,44 +288,44 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
               />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-blue-900 mb-1 tracking-wide">
+              <h1 className="text-xl font-bold text-blue-900 mb-1 tracking-wide">
                 LODWAR VOCATIONAL TRAINING CENTRE
               </h1>
-              <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto rounded-full"></div>
+              <div className="h-1 w-20 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto rounded-full"></div>
             </div>
           </div>
           
-          <div className="bg-gradient-to-r from-blue-800 to-blue-900 text-white py-3 px-6 rounded-xl shadow-lg">
-            <h2 className="text-xl font-bold tracking-widest">OFFICIAL TRANSCRIPT</h2>
+          <div className="bg-gradient-to-r from-blue-800 to-blue-900 text-white py-2 px-6 rounded-xl shadow-lg">
+            <h2 className="text-lg font-bold tracking-widest">OFFICIAL TRANSCRIPT</h2>
           </div>
         </div>
 
         {/* Enhanced Student Information */}
         <div className="grid grid-cols-2 gap-6 mb-4 text-sm relative z-10">
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-xl border border-blue-200">
             <div className="mb-3">
               <strong className="text-blue-900 text-xs uppercase tracking-wide">Name of Student:</strong>
-              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-base font-semibold text-gray-800">
+              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-sm font-semibold text-gray-800">
                 {data.studentName}
               </div>
             </div>
             <div>
               <strong className="text-blue-900 text-xs uppercase tracking-wide">Course:</strong>
-              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-base font-semibold text-gray-800">
+              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-sm font-semibold text-gray-800">
                 {data.course}
               </div>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-xl border border-blue-200">
             <div className="mb-3">
               <strong className="text-blue-900 text-xs uppercase tracking-wide">Admission No:</strong>
-              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-base font-semibold text-gray-800">
+              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-sm font-semibold text-gray-800">
                 {data.admissionNo}
               </div>
             </div>
             <div>
               <strong className="text-blue-900 text-xs uppercase tracking-wide">School Year:</strong>
-              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-base font-semibold text-gray-800">
+              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-sm font-semibold text-gray-800">
                 {data.schoolYear}
               </div>
             </div>
@@ -394,13 +393,13 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
 
         {/* Enhanced Remarks and Grade Scale */}
         <div className="grid grid-cols-2 gap-4 mb-4 relative z-10">
-          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-4 rounded-xl border border-purple-200">
+          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-3 rounded-xl border border-purple-200">
             <strong className="text-purple-900 text-xs uppercase tracking-wide">Academic Remarks</strong>
-            <div className="border border-purple-200 p-3 mt-2 min-h-[60px] rounded-lg bg-white">
+            <div className="border border-purple-200 p-2 mt-2 min-h-[50px] rounded-lg bg-white">
               <p className="text-gray-800 font-medium leading-relaxed text-xs">{overallRemarks}</p>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-xl border border-emerald-200">
+          <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-3 rounded-xl border border-emerald-200">
             <strong className="text-emerald-900 text-xs uppercase tracking-wide">Overall Grade Scale</strong>
             <div className="mt-2">
               <div className="bg-gradient-to-r from-emerald-700 to-green-700 text-white p-2 text-center font-bold mb-2 rounded-lg tracking-wide text-xs">
@@ -433,20 +432,20 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
         </div>
 
         {/* Enhanced Comments Section */}
-        <div className="grid grid-cols-3 gap-3 mt-6 relative z-10">
+        <div className="grid grid-cols-3 gap-3 mt-4 relative z-10">
           <div className="bg-gradient-to-br from-blue-100 to-cyan-100 p-3 rounded-xl border border-blue-200 shadow-md">
             <strong className="text-blue-900 text-xs uppercase tracking-wide">Manager Comments & Feedback:</strong>
             <p className="mt-2 text-xs text-gray-700 leading-relaxed">{managerComments}</p>
-            <div className="mt-4 text-center">
+            <div className="mt-3 text-center">
               <div className="border-t-2 border-blue-300 pt-2">
                 <strong className="text-xs text-blue-900 uppercase tracking-wide">Manager LVTC</strong>
-                <div className="w-16 h-0.5 bg-blue-600 mx-auto mt-1"></div>
+                <div className="w-12 h-0.5 bg-blue-600 mx-auto mt-1"></div>
               </div>
             </div>
           </div>
           
           <div className="bg-gradient-to-br from-green-100 to-emerald-100 p-3 rounded-xl border border-green-200 shadow-md">
-            <div className="text-center space-y-3">
+            <div className="text-center space-y-2">
               <div>
                 <strong className="text-green-900 text-xs uppercase tracking-wide">Closing Day:</strong>
                 <div className="border-b-2 border-green-300 mt-1 pb-1 font-semibold text-gray-800 text-xs">{editableFields.closingDay}</div>
@@ -465,10 +464,10 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
           <div className="bg-gradient-to-br from-purple-100 to-indigo-100 p-3 rounded-xl border border-purple-200 shadow-md">
             <strong className="text-purple-900 text-xs uppercase tracking-wide">H.O.D Comments & Feedback:</strong>
             <p className="mt-2 text-xs text-gray-700 leading-relaxed">{hodComments}</p>
-            <div className="mt-4 text-center">
+            <div className="mt-3 text-center">
               <div className="border-t-2 border-purple-300 pt-2">
                 <strong className="text-xs text-purple-900 uppercase tracking-wide">Head of Department</strong>
-                <div className="w-16 h-0.5 bg-purple-600 mx-auto mt-1"></div>
+                <div className="w-12 h-0.5 bg-purple-600 mx-auto mt-1"></div>
               </div>
             </div>
           </div>
@@ -480,9 +479,9 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
           .transcript-content {
             box-shadow: none !important;
             border: none !important;
-            font-size: 11px !important;
+            font-size: 10px !important;
             margin: 0;
-            padding: 8mm;
+            padding: 6mm;
           }
           
           body * {
@@ -499,7 +498,7 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
             top: 0;
             width: 100%;
             margin: 0;
-            padding: 8mm;
+            padding: 6mm;
           }
           
           .watermark {
