@@ -18,17 +18,17 @@ const ExcelUploader = ({ onDataParsed }: ExcelUploaderProps) => {
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
 
   const downloadTemplate = () => {
-    const csvContent = `Student Name,Admission No,Course,School Year,Trade Theory CAT,Trade Theory Exam,Trade Practice CAT,Trade Practice Exam,Communication Skills CAT,Communication Skills Exam,Entrepreneurship CAT,Entrepreneurship Exam,Mathematics CAT,Mathematics Exam,General Science CAT,General Science Exam,Digital Literacy CAT,Digital Literacy Exam
-John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,25,45,28,52,22,48,26,49,24,46,23,47,27,53
-Jane Smith,ADM002,PLUMBING,2023/2024,28,48,30,55,25,50,29,51,27,49,26,48,30,56
-Mike Johnson,ADM003,CARPENTRY,2023/2024,24,42,26,44,20,45,25,46,23,43,22,44,25,47
-Sarah Wilson,ADM004,ELECTRICAL INSTALLATION,2023/2024,30,50,32,58,28,52,30,54,29,51,27,49,31,57
-David Brown,ADM005,PLUMBING,2023/2024,26,46,29,53,24,48,27,50,25,47,24,46,28,52
-Lisa Taylor,ADM006,CARPENTRY,2023/2024,22,40,25,43,21,44,24,45,22,42,21,43,24,46
-Robert Clark,ADM007,ELECTRICAL INSTALLATION,2023/2024,29,49,31,56,27,51,29,52,28,50,26,48,30,55
-Emily Davis,ADM008,PLUMBING,2023/2024,27,47,30,54,26,49,28,51,26,48,25,47,29,53
-Mark Thompson,ADM009,CARPENTRY,2023/2024,23,41,26,44,22,45,25,46,23,43,22,44,25,47
-Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30,52,28,50,32,58`;
+    const csvContent = `Student Name,Admission No,Course,School Year,Trade Theory CAT,Trade Theory Exam,Trade Practice CAT,Trade Practice Exam,Communication Skills CAT,Communication Skills Exam,Entrepreneurship CAT,Entrepreneurship Exam,Mathematics CAT,Mathematics Exam,General Science CAT,General Science Exam,Digital Literacy CAT,Digital Literacy Exam,Life Skills CAT,Life Skills Exam
+John Doe,ADM001,ELECTRICAL INSTALLATION,2023/2024,25,45,28,52,22,48,26,49,24,46,23,47,27,53,24,46
+Jane Smith,ADM002,PLUMBING,2023/2024,28,48,30,55,25,50,29,51,27,49,26,48,30,56,28,50
+Mike Johnson,ADM003,CARPENTRY,2023/2024,24,42,26,44,20,45,25,46,23,43,22,44,25,47,23,45
+Sarah Wilson,ADM004,ELECTRICAL INSTALLATION,2023/2024,30,50,32,58,28,52,30,54,29,51,27,49,31,57,29,53
+David Brown,ADM005,PLUMBING,2023/2024,26,46,29,53,24,48,27,50,25,47,24,46,28,52,26,48
+Lisa Taylor,ADM006,CARPENTRY,2023/2024,22,40,25,43,21,44,24,45,22,42,21,43,24,46,22,44
+Robert Clark,ADM007,ELECTRICAL INSTALLATION,2023/2024,29,49,31,56,27,51,29,52,28,50,26,48,30,55,28,51
+Emily Davis,ADM008,PLUMBING,2023/2024,27,47,30,54,26,49,28,51,26,48,25,47,29,53,27,49
+Mark Thompson,ADM009,CARPENTRY,2023/2024,23,41,26,44,22,45,25,46,23,43,22,44,25,47,23,45
+Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30,52,28,50,32,58,30,54`;
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -136,7 +136,7 @@ Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30
           
           const [studentName, admissionNo, course, schoolYear] = cols;
           
-          // Standard course units
+          // Standard course units including Life Skills
           const courseUnits = [
             {
               name: "TRADE THEORY",
@@ -186,6 +186,13 @@ Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30
               exam: Number(cols[17]) || 0,
               total: (Number(cols[16]) || 0) + (Number(cols[17]) || 0),
               grade: calculateGrade((Number(cols[16]) || 0) + (Number(cols[17]) || 0))
+            },
+            {
+              name: "LIFE SKILLS",
+              cat: Number(cols[18]) || 0,
+              exam: Number(cols[19]) || 0,
+              total: (Number(cols[18]) || 0) + (Number(cols[19]) || 0),
+              grade: calculateGrade((Number(cols[18]) || 0) + (Number(cols[19]) || 0))
             }
           ];
 
@@ -325,7 +332,7 @@ Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30
           <li>CSV format with headers in the first row</li>
           <li>Each row contains data for one complete student</li>
           <li>Headers: Student Name, Admission No, Course, School Year, followed by CAT and Exam scores for each subject</li>
-          <li>Standard subjects: Trade Theory, Trade Practice, Communication Skills, Entrepreneurship, Mathematics, General Science, Digital Literacy</li>
+          <li>Standard subjects: Trade Theory, Trade Practice, Communication Skills, Entrepreneurship, Mathematics, General Science, Digital Literacy, Life Skills</li>
           <li>CAT and Exam scores should be numbers (0-100)</li>
           <li>Can handle 200+ students in a single file</li>
           <li>Each student gets one complete row with all their subject scores</li>
