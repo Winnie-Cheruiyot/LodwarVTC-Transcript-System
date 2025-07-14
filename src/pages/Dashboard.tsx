@@ -7,43 +7,35 @@ import { AnalyticsData, TranscriptData } from "@/types/transcript";
 import { BarChart3, TrendingUp, Users, FileText } from "lucide-react";
 
 const Dashboard = () => {
-  // Sample analytics data - in a real app, this would come from your backend
+  // Available courses for the vocational training centre
+  const availableCourses = [
+    "Motor Vehicles Mechanics",
+    "Carpentry and Joinery",
+    "Arc Welding",
+    "Masonry and Building Technology",
+    "Fashion Design and Garment Making",
+    "Information Communication Technology",
+    "Hairdressing and Beauty Therapy",
+    "Electrical Wireman",
+    "Plumbing and Pipe Fitting Technology",
+    "Food Processing and Beverage"
+  ];
+
+  // Clear analytics data - ready for new data
   const [analyticsData] = useState<AnalyticsData>({
     overallStats: {
-      totalStudents: 156,
-      overallAverage: 78.5,
-      overallPassRate: 84.6
+      totalStudents: 0,
+      overallAverage: 0,
+      overallPassRate: 0
     },
-    topStudents: [
-      { name: "Jane Doe", admissionNo: "LVT001", course: "Electrical Installation", total: 95, grade: "A" },
-      { name: "John Smith", admissionNo: "LVT002", course: "Plumbing", total: 92, grade: "A" },
-      { name: "Mary Johnson", admissionNo: "LVT003", course: "Carpentry", total: 89, grade: "B" },
-      { name: "Peter Wilson", admissionNo: "LVT004", course: "Masonry", total: 87, grade: "B" },
-      { name: "Sarah Brown", admissionNo: "LVT005", course: "Tailoring", total: 85, grade: "B" },
-      { name: "David Miller", admissionNo: "LVT006", course: "Electrical Installation", total: 88, grade: "B" },
-      { name: "Lisa Anderson", admissionNo: "LVT007", course: "Computer Studies", total: 94, grade: "A" },
-      { name: "Michael Davis", admissionNo: "LVT008", course: "Plumbing", total: 83, grade: "B" },
-      { name: "Jennifer White", admissionNo: "LVT009", course: "Carpentry", total: 81, grade: "B" },
-      { name: "Robert Taylor", admissionNo: "LVT010", course: "Masonry", total: 79, grade: "C" },
-      { name: "Emma Wilson", admissionNo: "LVT011", course: "Tailoring", total: 82, grade: "B" },
-      { name: "James Moore", admissionNo: "LVT012", course: "Computer Studies", total: 90, grade: "A" },
-      { name: "Olivia Clark", admissionNo: "LVT013", course: "Electrical Installation", total: 86, grade: "B" },
-      { name: "William Lee", admissionNo: "LVT014", course: "Plumbing", total: 78, grade: "C" },
-      { name: "Sophia Garcia", admissionNo: "LVT015", course: "Carpentry", total: 84, grade: "B" },
-      { name: "Alexander Martin", admissionNo: "LVT016", course: "Masonry", total: 77, grade: "C" },
-      { name: "Isabella Rodriguez", admissionNo: "LVT017", course: "Tailoring", total: 80, grade: "B" },
-      { name: "Benjamin Hall", admissionNo: "LVT018", course: "Computer Studies", total: 87, grade: "B" },
-      { name: "Charlotte Young", admissionNo: "LVT019", course: "Electrical Installation", total: 91, grade: "A" },
-      { name: "Noah King", admissionNo: "LVT020", course: "Plumbing", total: 75, grade: "C" }
-    ],
-    courseAnalytics: [
-      { courseName: "Electrical Installation", studentCount: 32, averageScore: 82.3, topScore: 95, passRate: 87.5 },
-      { courseName: "Plumbing", studentCount: 28, averageScore: 79.1, topScore: 92, passRate: 85.7 },
-      { courseName: "Carpentry", studentCount: 24, averageScore: 76.8, topScore: 89, passRate: 83.3 },
-      { courseName: "Masonry", studentCount: 30, averageScore: 75.2, topScore: 87, passRate: 80.0 },
-      { courseName: "Tailoring", studentCount: 22, averageScore: 78.9, topScore: 85, passRate: 86.4 },
-      { courseName: "Computer Studies", studentCount: 20, averageScore: 81.5, topScore: 94, passRate: 90.0 }
-    ]
+    topStudents: [],
+    courseAnalytics: availableCourses.map(courseName => ({
+      courseName,
+      studentCount: 0,
+      averageScore: 0,
+      topScore: 0,
+      passRate: 0
+    }))
   });
 
   return (
