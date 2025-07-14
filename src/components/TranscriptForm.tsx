@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Trash2 } from "lucide-react";
 import { TranscriptData, CourseUnit } from "@/types/transcript";
 import { toast } from "sonner";
@@ -12,6 +13,19 @@ interface TranscriptFormProps {
 }
 
 const TranscriptForm = ({ onSubmit }: TranscriptFormProps) => {
+  const availableCourses = [
+    "Motor Vehicles Mechanics",
+    "Carpentry and Joinery",
+    "Arc Welding",
+    "Masonry and Building Technology",
+    "Fashion Design and Garment Making",
+    "Information Communication Technology",
+    "Hairdressing and Beauty Therapy",
+    "Electrical Wireman",
+    "Plumbing and Pipe Fitting Technology",
+    "Food Processing and Beverage"
+  ];
+
   const [formData, setFormData] = useState({
     studentName: "",
     admissionNo: "",
@@ -104,13 +118,18 @@ const TranscriptForm = ({ onSubmit }: TranscriptFormProps) => {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="course">Course *</Label>
-          <Input
-            id="course"
-            value={formData.course}
-            onChange={(e) => setFormData({ ...formData, course: e.target.value })}
-            placeholder="Enter course name"
-            required
-          />
+          <Select value={formData.course} onValueChange={(value) => setFormData({ ...formData, course: value })}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a course" />
+            </SelectTrigger>
+            <SelectContent>
+              {availableCourses.map((course) => (
+                <SelectItem key={course} value={course}>
+                  {course}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div>
           <Label htmlFor="schoolYear">School Year</Label>
