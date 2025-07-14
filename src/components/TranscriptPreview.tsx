@@ -47,20 +47,11 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
   const overallRemarks = calculateOverallRemarks(overallTotal);
 
   const generateAutomaticComments = () => {
-    const totalUnits = data.courseUnits.length;
-    const passedUnits = data.courseUnits.filter(unit => unit.total >= 40).length;
-    const averageScore = data.courseUnits.reduce((sum, unit) => sum + unit.total, 0) / totalUnits;
+    const averageScore = data.courseUnits.reduce((sum, unit) => sum + unit.total, 0) / data.courseUnits.length;
     
-    let performance = "";
-    if (averageScore >= 70) performance = "excellent";
-    else if (averageScore >= 60) performance = "good";
-    else if (averageScore >= 50) performance = "satisfactory";
-    else if (averageScore >= 40) performance = "fair";
-    else performance = "needs improvement";
-
     return {
-      managerComments: `Student has demonstrated ${performance} performance across ${totalUnits} course units with a total score of ${overallTotal}. ${overallRemarks}`,
-      hodComments: `Academic performance reflects ${overallGrade.toLowerCase()} level competency. Student shows ${averageScore >= 60 ? 'strong' : averageScore >= 40 ? 'adequate' : 'limited'} grasp of practical and theoretical aspects.`
+      managerComments: `Total score: ${overallTotal}. Grade: ${overallGrade}.`,
+      hodComments: `Average: ${averageScore.toFixed(1)}%. Performance: ${overallGrade}.`
     };
   };
 
