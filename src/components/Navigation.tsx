@@ -1,7 +1,7 @@
 
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, BarChart3 } from "lucide-react";
+import { Home, BarChart3, Bot } from "lucide-react";
 
 const Navigation = () => {
   const location = useLocation();
@@ -33,6 +33,15 @@ const Navigation = () => {
               >
                 <BarChart3 className="w-4 h-4" />
                 Dashboard
+              </Button>
+            </Link>
+            <Link to="/chatbot">
+              <Button 
+                variant={location.pathname === "/chatbot" ? "default" : "ghost"}
+                className="flex items-center gap-2"
+              >
+                <Bot className="w-4 h-4" />
+                Assistant
               </Button>
             </Link>
           </div>
