@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Upload, Download, FileSpreadsheet, BarChart3 } from "lucide-react";
 import { TranscriptData, BatchTranscriptData, AnalyticsData } from "@/types/transcript";
 import { toast } from "sonner";
+import { useTranscript } from "@/contexts/TranscriptContext";
 import BatchTranscriptPreview from "./BatchTranscriptPreview";
 import Analytics from "./Analytics";
 
@@ -14,8 +15,8 @@ interface ExcelUploaderProps {
 
 const ExcelUploader = ({ onDataParsed }: ExcelUploaderProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [batchData, setBatchData] = useState<BatchTranscriptData | null>(null);
-  const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
+  const { setAnalyticsData, setBatchData, batchData } = useTranscript();
+  const [localAnalyticsData, setLocalAnalyticsData] = useState<AnalyticsData | null>(null);
 
   const downloadTemplate = () => {
     const csvContent = `Student Name,Admission No,Course,School Year,Trade Theory CAT,Trade Theory Exam,Trade Practice CAT,Trade Practice Exam,Communication Skills CAT,Communication Skills Exam,Entrepreneurship CAT,Entrepreneurship Exam,Mathematics CAT,Mathematics Exam,General Science CAT,General Science Exam,Digital Literacy CAT,Digital Literacy Exam,Life Skills CAT,Life Skills Exam
@@ -228,7 +229,9 @@ Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30
         };
 
         setBatchData(batchTranscriptData);
-        setAnalyticsData(generateAnalytics(students));
+        const analytics = generateAnalytics(students);
+        setAnalyticsData(analytics);
+        setLocalAnalyticsData(analytics);
         toast.success(`Batch data loaded: ${students.length} students processed successfully!`);
         
       } catch (error) {
@@ -245,7 +248,7 @@ Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30
     }
   };
 
-  if (batchData && analyticsData) {
+  if (batchData && localAnalyticsData) {
     return (
       <div className="space-y-6">
         <Tabs defaultValue="preview" className="w-full">
@@ -259,14 +262,14 @@ Jennifer Lee,ADM010,ELECTRICAL INSTALLATION,2023/2024,31,51,33,59,29,53,31,55,30
           </TabsContent>
           
           <TabsContent value="analytics" className="mt-6">
-            <Analytics data={analyticsData} />
+            <Analytics data={localAnalyticsData} />
           </TabsContent>
         </Tabs>
 
         <Button 
           onClick={() => {
             setBatchData(null);
-            setAnalyticsData(null);
+            setLocalAnalyticsData(null);
           }} 
           variant="outline" 
           className="w-full"

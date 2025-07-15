@@ -1,14 +1,13 @@
 
-import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TranscriptForm from "@/components/TranscriptForm";
 import ExcelUploader from "@/components/ExcelUploader";
 import TranscriptPreview from "@/components/TranscriptPreview";
-import { TranscriptData } from "@/types/transcript";
+import { useTranscript } from "@/contexts/TranscriptContext";
 
 const Index = () => {
-  const [transcriptData, setTranscriptData] = useState<TranscriptData | null>(null);
+  const { transcriptData, addTranscriptData } = useTranscript();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -35,11 +34,11 @@ const Index = () => {
                 </TabsList>
                 
                 <TabsContent value="excel" className="mt-6">
-                  <ExcelUploader onDataParsed={setTranscriptData} />
+                  <ExcelUploader onDataParsed={addTranscriptData} />
                 </TabsContent>
                 
                 <TabsContent value="form" className="mt-6">
-                  <TranscriptForm onSubmit={setTranscriptData} />
+                  <TranscriptForm onSubmit={addTranscriptData} />
                 </TabsContent>
               </Tabs>
             </Card>

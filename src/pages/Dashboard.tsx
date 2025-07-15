@@ -1,16 +1,17 @@
 
-import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Analytics from "@/components/Analytics";
-import { AnalyticsData, TranscriptData } from "@/types/transcript";
+import { useTranscript } from "@/contexts/TranscriptContext";
 import { BarChart3, TrendingUp, Users, FileText } from "lucide-react";
 
 const Dashboard = () => {
+  const { analyticsData } = useTranscript();
+
   // Available courses for the vocational training centre
   const availableCourses = [
     "Motor Vehicles Mechanics",
-    "Carpentry and Joinery",
+    "Carpentry and Joinery", 
     "Arc Welding",
     "Masonry and Building Technology",
     "Fashion Design and Garment Making",
@@ -21,8 +22,8 @@ const Dashboard = () => {
     "Food Processing and Beverage"
   ];
 
-  // Clear analytics data - ready for new data
-  const [analyticsData] = useState<AnalyticsData>({
+  // Default empty analytics data when no data is available
+  const defaultAnalyticsData = {
     overallStats: {
       totalStudents: 0,
       overallAverage: 0,
@@ -36,7 +37,9 @@ const Dashboard = () => {
       topScore: 0,
       passRate: 0
     }))
-  });
+  };
+
+  const displayData = analyticsData || defaultAnalyticsData;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -55,7 +58,7 @@ const Dashboard = () => {
         </div>
 
         <div className="mb-6">
-          <Analytics data={analyticsData} />
+          <Analytics data={displayData} />
         </div>
       </div>
     </div>
