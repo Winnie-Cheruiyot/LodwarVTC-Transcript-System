@@ -49,9 +49,30 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
   const generateAutomaticComments = () => {
     const averageScore = data.courseUnits.reduce((sum, unit) => sum + unit.total, 0) / data.courseUnits.length;
     
+    // Generate appropriate short comments based on performance
+    let managerComment = "Good effort";
+    let hodComment = "Keep improving";
+    
+    if (overallTotal >= 420) {
+      managerComment = "Excellent work";
+      hodComment = "Outstanding performance";
+    } else if (overallTotal >= 350) {
+      managerComment = "Great effort";
+      hodComment = "Well done";
+    } else if (overallTotal >= 300) {
+      managerComment = "Good work";
+      hodComment = "Satisfactory progress";
+    } else if (overallTotal >= 200) {
+      managerComment = "Put more effort";
+      hodComment = "Needs improvement";
+    } else {
+      managerComment = "Much more effort needed";
+      hodComment = "Requires attention";
+    }
+    
     return {
-      managerComments: `Total score: ${overallTotal}. Grade: ${overallGrade}.`,
-      hodComments: `Average: ${averageScore.toFixed(1)}%. Performance: ${overallGrade}.`
+      managerComments: managerComment,
+      hodComments: hodComment
     };
   };
 
