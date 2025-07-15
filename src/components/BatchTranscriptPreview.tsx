@@ -125,7 +125,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                 
                 <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
                    <div class="logo">
-                     <img src="/lovable-uploads/70730614-901e-4508-b88c-1a721ef8e88b.png" alt="LVTC Logo" />
+                     <img src="${window.location.origin}/lovable-uploads/70730614-901e-4508-b88c-1a721ef8e88b.png" alt="LVTC Logo" />
                    </div>
                   <div>
                     <h1 style="margin: 0; font-size: 18px; color: #1e3a8a;">LODWAR VOCATIONAL TRAINING CENTRE</h1>
