@@ -78,7 +78,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
               margin: 0 auto; 
               padding: 10mm;
               page-break-after: always;
-              font-size: 12px;
+              font-size: 14px;
             }
             .transcript-page:last-child { page-break-after: avoid; }
             .header { text-align: center; margin-bottom: 20px; }
@@ -95,20 +95,20 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
               height: 100%;
               object-fit: cover;
             }
-            .contact-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 10px; }
+            .contact-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 12px; }
             .contact-item { display: flex; align-items: center; gap: 5px; }
             table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-            th, td { border: 1px solid #333; padding: 6px; text-align: left; font-size: 10px; }
+            th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 12px; }
             th { background-color: #1e3a8a; color: white; }
             .student-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
             .info-field { margin-bottom: 10px; }
-            .info-label { font-weight: bold; color: #1e3a8a; font-size: 10px; }
-            .info-value { border-bottom: 1px solid #666; padding-bottom: 2px; margin-top: 2px; font-size: 11px; }
+            .info-label { font-weight: bold; color: #1e3a8a; font-size: 12px; }
+            .info-value { border-bottom: 1px solid #666; padding-bottom: 2px; margin-top: 2px; font-size: 13px; }
             .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
-            .grade-scale-table th, .grade-scale-table td { padding: 4px; font-size: 9px; }
+            .grade-scale-table th, .grade-scale-table td { padding: 4px; font-size: 11px; }
             .comments-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
-            .comment-box { background: #f0f9ff; padding: 8px; border-radius: 5px; font-size: 9px; }
-            .signature-line { border-top: 1px solid #666; margin-top: 20px; padding-top: 5px; text-align: center; font-size: 8px; font-weight: bold; }
+            .comment-box { background: #f0f9ff; padding: 8px; border-radius: 5px; font-size: 11px; }
+            .signature-line { border-top: 1px solid #666; margin-top: 20px; padding-top: 5px; text-align: center; font-size: 10px; font-weight: bold; }
             .total-row { background-color: #dcfce7; font-weight: bold; }
             @media print { 
               body { margin: 0; } 
@@ -199,7 +199,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                 </div>
                 
                 <div>
-                  <div style="background: #1e3a8a; color: white; padding: 6px; text-align: center; font-weight: bold; margin-bottom: 5px; font-size: 10px;">
+                  <div style="background: #1e3a8a; color: white; padding: 6px; text-align: center; font-weight: bold; margin-bottom: 5px; font-size: 12px;">
                     GRADING SYSTEM
                   </div>
                   <table class="grade-scale-table">
@@ -218,7 +218,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
                 <div>
                   <div class="info-label">REMARKS</div>
-                  <div style="border: 1px solid #666; padding: 8px; min-height: 40px; font-size: 10px;">
+                  <div style="border: 1px solid #666; padding: 8px; min-height: 40px; font-size: 12px;">
                     ${student.overallRemarks}
                   </div>
                 </div>
