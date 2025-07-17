@@ -299,7 +299,7 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div>
+            <div className="text-center">
               <h1 className="text-xl font-bold text-blue-900 mb-1 tracking-wide">
                 LODWAR VOCATIONAL TRAINING CENTRE
               </h1>
