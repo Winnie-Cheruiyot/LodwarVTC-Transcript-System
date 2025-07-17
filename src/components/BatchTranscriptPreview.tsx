@@ -272,6 +272,11 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                   <div class="signature-line">H.O.D</div>
                 </div>
               </div>
+              
+              <!-- Footer -->
+              <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ccc; color: #666; font-size: 12px;">
+                @LVTC 2025
+              </div>
             </div>
           `).join('')}
         </body>
