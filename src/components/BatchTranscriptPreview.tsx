@@ -130,7 +130,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                    <div class="logo">
                      <img src="${logoUrl}" alt="LVTC Logo" />
                    </div>
-                  <div>
+                  <div style="text-align: center;">
                     <h1 style="margin: 0; font-size: 18px; color: #1e3a8a;">LODWAR VOCATIONAL TRAINING CENTRE</h1>
                   </div>
                 </div>
@@ -244,7 +244,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
               <div class="comments-section">
                 <div class="comment-box">
                   <div class="info-label">MANAGER COMMENTS AND FEEDBACK:</div>
-                  <p style="margin: 8px 0; font-size: 8px;">Student has demonstrated strong performance across ${student.courseUnits.length} course units with a total score of ${student.overallTotal}. ${student.overallRemarks}</p>
+                  <p style="margin: 8px 0; font-size: 14px;">Student has demonstrated strong performance across ${student.courseUnits.length} course units with a total score of ${student.overallTotal}. ${student.overallRemarks}</p>
                   <div class="signature-line">MANAGER LVTC</div>
                 </div>
                 
@@ -267,7 +267,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                 
                 <div class="comment-box">
                   <div class="info-label">H.O.D COMMENTS AND FEEDBACK:</div>
-                  <p style="margin: 8px 0; font-size: 8px;">Academic performance reflects ${student.overallGrade.toLowerCase()} level competency. Student shows consistent progress across practical and theoretical components.</p>
+                  <p style="margin: 8px 0; font-size: 14px;">Academic performance reflects ${student.overallGrade.toLowerCase()} level competency. Student shows consistent progress across practical and theoretical components.</p>
                   <div class="signature-line">H.O.D</div>
                 </div>
               </div>
