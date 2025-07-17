@@ -79,6 +79,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
               padding: 10mm;
               page-break-after: always;
               font-size: 14px;
+              border: 5px solid #333;
             }
             .transcript-page:last-child { page-break-after: avoid; }
             .header { text-align: center; margin-bottom: 20px; }
@@ -98,7 +99,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
             .contact-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 12px; }
             .contact-item { display: flex; align-items: center; gap: 5px; }
             table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-            th, td { border: 3px solid #333; padding: 8px; text-align: left; font-size: 12px; }
+            th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 12px; }
             th { background-color: #1e3a8a; color: white; }
             .student-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
             .info-field { margin-bottom: 10px; }
