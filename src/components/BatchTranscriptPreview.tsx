@@ -71,21 +71,23 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
         <head>
           <title>Batch Transcripts - ${data.metadata.schoolYear}</title>
           <style>
-            body { font-family: Arial, sans-serif; margin: 0; }
+            body { font-family: 'Georgia', serif; margin: 0; background: white; }
             .transcript-page { 
               width: 210mm; 
               min-height: 297mm; 
               margin: 0 auto; 
-              padding: 10mm;
+              padding: 12mm;
               page-break-after: always;
-              font-size: 14px;
-              border: 5px solid #333;
+              font-size: 11px;
+              line-height: 1.3;
+              background: white;
+              position: relative;
             }
             .transcript-page:last-child { page-break-after: avoid; }
             .header { text-align: center; margin-bottom: 20px; }
             .logo { 
-              width: 80px; 
-              height: 80px; 
+              width: 60px; 
+              height: 60px; 
               margin: 0 auto 10px; 
               border-radius: 50%; 
               overflow: hidden;
@@ -96,30 +98,165 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
               height: 100%;
               object-fit: cover;
             }
-            .contact-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 12px; }
-            .contact-item { display: flex; align-items: center; gap: 5px; }
-            table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-            th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 12px; }
-            th { background-color: #1e3a8a; color: white; }
-            .student-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
-            .info-field { margin-bottom: 10px; }
-            .info-label { font-weight: bold; color: #1e3a8a; font-size: 12px; }
-            .info-value { border-bottom: 1px solid #666; padding-bottom: 2px; margin-top: 2px; font-size: 13px; }
+            .contact-info { 
+              display: flex; 
+              justify-content: space-between; 
+              margin-bottom: 15px; 
+              font-size: 10px; 
+              color: #1e40af;
+              font-weight: 500;
+            }
+            .contact-item { 
+              display: flex; 
+              align-items: center; 
+              gap: 5px; 
+              background: rgba(30, 64, 175, 0.1);
+              padding: 6px 12px;
+              border-radius: 20px;
+              border: 1px solid rgba(30, 64, 175, 0.2);
+            }
+            table { 
+              width: 100%; 
+              border-collapse: collapse; 
+              margin: 15px 0; 
+              box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+              border-radius: 8px;
+              overflow: hidden;
+            }
+            th, td { 
+              border: 1px solid #e5e7eb; 
+              padding: 6px; 
+              text-align: left; 
+              font-size: 10px; 
+            }
+            th { 
+              background: linear-gradient(135deg, #1e40af, #3b82f6); 
+              color: white; 
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            .student-info { 
+              display: grid; 
+              grid-template-columns: 1fr 1fr; 
+              gap: 20px; 
+              margin-bottom: 15px; 
+              background: #f8fafc;
+              padding: 15px;
+              border-radius: 12px;
+              border: 2px solid #e2e8f0;
+            }
+            .info-field { margin-bottom: 12px; }
+            .info-label { 
+              font-weight: bold; 
+              color: #1e3a8a; 
+              font-size: 10px; 
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+              margin-bottom: 4px;
+            }
+            .info-value { 
+              border-bottom: 2px solid #3b82f6; 
+              padding-bottom: 4px; 
+              margin-top: 2px; 
+              font-size: 12px;
+              font-weight: 600;
+              color: #1f2937;
+            }
             .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
-            .grade-scale-table th, .grade-scale-table td { padding: 4px; font-size: 11px; }
-            .comments-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
-            .comment-box { background: #f0f9ff; padding: 8px; border-radius: 5px; font-size: 11px; }
-            .signature-line { border-top: 1px solid #666; margin-top: 20px; padding-top: 5px; text-align: center; font-size: 10px; font-weight: bold; }
-            .total-row { background-color: #dcfce7; font-weight: bold; }
+            .grade-scale-table { 
+              border-radius: 8px; 
+              overflow: hidden;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+            .grade-scale-table th, .grade-scale-table td { 
+              padding: 6px; 
+              font-size: 10px; 
+            }
+            .grade-scale-header {
+              background: linear-gradient(135deg, #f59e0b, #eab308);
+              color: white;
+              padding: 8px;
+              text-align: center;
+              font-weight: bold;
+              font-size: 11px;
+              letter-spacing: 0.5px;
+            }
+            .comments-section { 
+              display: grid; 
+              grid-template-columns: 1fr 1fr 1fr; 
+              gap: 12px; 
+              margin-top: 15px; 
+            }
+            .comment-box { 
+              background: linear-gradient(135deg, #f0f9ff, #e0f2fe); 
+              padding: 10px; 
+              border-radius: 12px; 
+              font-size: 10px; 
+              border: 1px solid #0ea5e9;
+              box-shadow: 0 2px 4px rgba(14, 165, 233, 0.1);
+            }
+            .signature-line { 
+              border-top: 2px solid #3b82f6; 
+              margin-top: 15px; 
+              padding-top: 8px; 
+              text-align: center; 
+              font-size: 9px; 
+              font-weight: bold;
+              color: #1e40af;
+            }
+            .total-row { 
+              background: linear-gradient(135deg, #dcfce7, #bbf7d0); 
+              font-weight: bold; 
+            }
+            .course-unit-cell {
+              background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+              font-weight: 600;
+              color: #166534;
+            }
+            .watermark {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%) rotate(-45deg);
+              font-size: 80px;
+              color: rgba(30, 64, 175, 0.05);
+              font-weight: bold;
+              z-index: -1;
+              pointer-events: none;
+            }
+            .school-title {
+              background: linear-gradient(135deg, #1e40af, #3b82f6);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              font-weight: bold;
+              font-size: 18px;
+              margin-bottom: 8px;
+            }
+            .transcript-badge {
+              background: linear-gradient(135deg, #1e40af, #3b82f6);
+              color: white;
+              padding: 10px 20px;
+              border-radius: 12px;
+              font-size: 16px;
+              font-weight: bold;
+              letter-spacing: 1px;
+              box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+            }
             @media print { 
               body { margin: 0; } 
               .transcript-page { margin: 0; box-shadow: none; }
+              .watermark { display: block; }
             }
           </style>
         </head>
         <body>
           ${enhancedStudents.map(student => `
             <div class="transcript-page">
+               <!-- Watermark -->
+              <div class="watermark">LVTC</div>
+              
               <!-- Header -->
               <div class="header">
                 <div class="contact-info">
@@ -132,12 +269,13 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                      <img src="${logoUrl}" alt="LVTC Logo" />
                    </div>
                   <div style="text-align: center;">
-                    <h1 style="margin: 0; font-size: 18px; color: #1e3a8a; text-align: center;">LODWAR VOCATIONAL TRAINING CENTRE</h1>
+                    <h1 class="school-title">LODWAR VOCATIONAL TRAINING CENTRE</h1>
+                    <div style="height: 3px; width: 80px; background: linear-gradient(135deg, #1e40af, #3b82f6); margin: 0 auto; border-radius: 2px;"></div>
                   </div>
                 </div>
                 
-                <div style="background: #1e3a8a; color: white; padding: 8px; border-radius: 5px; display: inline-block;">
-                  <h2 style="margin: 0; font-size: 16px;">TRANSCRIPT</h2>
+                <div class="transcript-badge">
+                  OFFICIAL TRANSCRIPT
                 </div>
               </div>
 
@@ -179,15 +317,15 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                       </tr>
                     </thead>
                     <tbody>
-                      ${student.courseUnits.map(unit => `
-                        <tr>
-                          <td style="background: #dcfce7;">${unit.name}</td>
-                          <td style="text-align: center;">${unit.cat}</td>
-                          <td style="text-align: center;">${unit.exam}</td>
-                          <td style="text-align: center; font-weight: bold;">${unit.total}</td>
-                          <td style="text-align: center; font-weight: bold;">${unit.grade}</td>
-                        </tr>
-                      `).join('')}
+                       ${student.courseUnits.map((unit, index) => `
+                         <tr style="${index % 2 === 0 ? 'background: #f9fafb;' : 'background: white;'}">
+                           <td class="course-unit-cell">${unit.name}</td>
+                           <td style="text-align: center; font-weight: 500;">${unit.cat}</td>
+                           <td style="text-align: center; font-weight: 500;">${unit.exam}</td>
+                           <td style="text-align: center; font-weight: bold; color: #1e40af;">${unit.total}</td>
+                           <td style="text-align: center; font-weight: bold; color: #1e40af;">${unit.grade}</td>
+                         </tr>
+                       `).join('')}
                       <tr class="total-row">
                         <td><strong>Total</strong></td>
                         <td></td>
@@ -200,16 +338,16 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                 </div>
                 
                 <div>
-                  <div style="background: #1e3a8a; color: white; padding: 6px; text-align: center; font-weight: bold; margin-bottom: 5px; font-size: 12px;">
+                  <div class="grade-scale-header">
                     GRADING SYSTEM
                   </div>
                   <table class="grade-scale-table">
                     <tbody>
-                      <tr><td style="text-align: center; font-weight: bold;">A</td><td style="text-align: center;">70-100</td></tr>
-                      <tr><td style="text-align: center; font-weight: bold;">B</td><td style="text-align: center;">60-69</td></tr>
-                      <tr><td style="text-align: center; font-weight: bold;">C</td><td style="text-align: center;">50-59</td></tr>
-                      <tr><td style="text-align: center; font-weight: bold;">D</td><td style="text-align: center;">40-49</td></tr>
-                      <tr><td style="text-align: center; font-weight: bold;">E</td><td style="text-align: center;">0-39</td></tr>
+                      <tr style="background: #fef3c7;"><td style="text-align: center; font-weight: bold; color: #92400e;">A</td><td style="text-align: center; color: #92400e;">70-100</td></tr>
+                      <tr style="background: white;"><td style="text-align: center; font-weight: bold; color: #92400e;">B</td><td style="text-align: center; color: #92400e;">60-69</td></tr>
+                      <tr style="background: #fef3c7;"><td style="text-align: center; font-weight: bold; color: #92400e;">C</td><td style="text-align: center; color: #92400e;">50-59</td></tr>
+                      <tr style="background: white;"><td style="text-align: center; font-weight: bold; color: #92400e;">D</td><td style="text-align: center; color: #92400e;">40-49</td></tr>
+                      <tr style="background: #fef3c7;"><td style="text-align: center; font-weight: bold; color: #92400e;">E</td><td style="text-align: center; color: #92400e;">0-39</td></tr>
                     </tbody>
                   </table>
                 </div>
