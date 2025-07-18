@@ -34,46 +34,6 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
     return "Performance needs improvement.";
   };
 
-  const getSubjectCategory = (unitName: string): string => {
-    const name = unitName.toLowerCase();
-    if (name.includes('theory') || name.includes('theoretical')) return 'Trade Theory';
-    if (name.includes('practice') || name.includes('practical') || name.includes('workshop')) return 'Trade Practice';
-    if (name.includes('communication') || name.includes('english') || name.includes('language')) return 'Communication Skills';
-    if (name.includes('entrepreneur') || name.includes('business')) return 'Entrepreneurship';
-    if (name.includes('math') || name.includes('arithmetic') || name.includes('calculation')) return 'Mathematics';
-    if (name.includes('science') || name.includes('physics') || name.includes('chemistry') || name.includes('biology')) return 'General Science';
-    if (name.includes('digital') || name.includes('computer') || name.includes('ict') || name.includes('technology')) return 'Digital Literacy';
-    if (name.includes('life') || name.includes('social') || name.includes('ethics') || name.includes('guidance')) return 'Life Skills';
-    return 'Other';
-  };
-
-  const getBestSubjectCategories = (student: TranscriptData): string => {
-    const categoryScores: { [key: string]: { total: number; count: number; units: string[] } } = {};
-    
-    student.courseUnits.forEach(unit => {
-      const category = getSubjectCategory(unit.name);
-      if (category !== 'Other') {
-        if (!categoryScores[category]) {
-          categoryScores[category] = { total: 0, count: 0, units: [] };
-        }
-        categoryScores[category].total += unit.total;
-        categoryScores[category].count += 1;
-        categoryScores[category].units.push(unit.name);
-      }
-    });
-
-    const categoryAverages = Object.entries(categoryScores)
-      .map(([category, data]) => ({
-        category,
-        average: data.total / data.count,
-        units: data.units
-      }))
-      .sort((a, b) => b.average - a.average);
-
-    return categoryAverages.slice(0, 3).map(cat => 
-      `${cat.category} (${cat.average.toFixed(1)})`
-    ).join(', ');
-  };
 
   const enhanceStudentData = (student: TranscriptData): TranscriptData => {
     const overallTotal = student.courseUnits.reduce((sum, unit) => sum + unit.total, 0);
@@ -104,11 +64,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
     
     const printWindow = window.open('', '_blank');
     if (printWindow) {
-      const enhancedStudents = data.students.map(student => {
-        const enhanced = enhanceStudentData(student);
-        const bestSubjects = getBestSubjectCategories(student);
-        return { ...enhanced, bestSubjects };
-      });
+      const enhancedStudents = data.students.map(student => enhanceStudentData(student));
       
       printWindow.document.write(`
         <!DOCTYPE html>
@@ -429,10 +385,6 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
                 <div class="comment-box">
                   <div class="info-label">MANAGER COMMENTS AND FEEDBACK:</div>
                   <p style="margin: 8px 0; font-size: 14px;">Student has demonstrated strong performance across ${student.courseUnits.length} course units with a total score of ${student.overallTotal}. ${student.overallRemarks}</p>
-                  <div style="margin: 8px 0; padding: 6px; background: rgba(30, 64, 175, 0.1); border-radius: 6px;">
-                    <div class="info-label" style="margin-bottom: 4px;">Best Subject Areas:</div>
-                    <div style="font-size: 11px; color: #1e40af; font-weight: 600;">${student.bestSubjects}</div>
-                  </div>
                   <div class="signature-line">MANAGER LVTC</div>
                 </div>
                 
