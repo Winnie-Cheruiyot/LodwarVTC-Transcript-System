@@ -124,7 +124,7 @@ const BatchTranscriptPreview = ({ data }: BatchTranscriptPreviewProps) => {
               overflow: hidden;
             }
             th, td { 
-              border: 1px solid #e5e7eb; 
+              border: 1px solid #d1d5db; 
               padding: 6px; 
               text-align: left; 
               font-size: 10px; 
