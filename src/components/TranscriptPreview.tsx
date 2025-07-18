@@ -78,6 +78,47 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
 
   const { managerComments, hodComments } = generateAutomaticComments();
 
+  const getSubjectCategory = (unitName: string): string => {
+    const name = unitName.toLowerCase();
+    if (name.includes('theory') || name.includes('theoretical')) return 'Trade Theory';
+    if (name.includes('practice') || name.includes('practical') || name.includes('workshop')) return 'Trade Practice';
+    if (name.includes('communication') || name.includes('english') || name.includes('language')) return 'Communication Skills';
+    if (name.includes('entrepreneur') || name.includes('business')) return 'Entrepreneurship';
+    if (name.includes('math') || name.includes('arithmetic') || name.includes('calculation')) return 'Mathematics';
+    if (name.includes('science') || name.includes('physics') || name.includes('chemistry') || name.includes('biology')) return 'General Science';
+    if (name.includes('digital') || name.includes('computer') || name.includes('ict') || name.includes('technology')) return 'Digital Literacy';
+    if (name.includes('life') || name.includes('social') || name.includes('ethics') || name.includes('guidance')) return 'Life Skills';
+    return 'Other';
+  };
+
+  const getBestSubjectCategories = (): string => {
+    const categoryScores: { [key: string]: { total: number; count: number; units: string[] } } = {};
+    
+    data.courseUnits.forEach(unit => {
+      const category = getSubjectCategory(unit.name);
+      if (category !== 'Other') {
+        if (!categoryScores[category]) {
+          categoryScores[category] = { total: 0, count: 0, units: [] };
+        }
+        categoryScores[category].total += unit.total;
+        categoryScores[category].count += 1;
+        categoryScores[category].units.push(unit.name);
+      }
+    });
+
+    const categoryAverages = Object.entries(categoryScores)
+      .map(([category, data]) => ({
+        category,
+        average: data.total / data.count,
+        units: data.units
+      }))
+      .sort((a, b) => b.average - a.average);
+
+    return categoryAverages.slice(0, 3).map(cat => 
+      `${cat.category} (${cat.average.toFixed(1)})`
+    ).join(', ');
+  };
+
   const handlePrint = () => {
     window.print();
     toast.success("Print dialog opened");
@@ -448,6 +489,10 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
           <div className="bg-gradient-to-br from-blue-100 to-cyan-100 p-3 rounded-xl border border-blue-200 shadow-md">
             <strong className="text-blue-900 text-xs uppercase tracking-wide">Manager Comments & Feedback:</strong>
             <p className="mt-2 text-xs text-gray-700 leading-relaxed">{managerComments}</p>
+            <div className="mt-2 p-2 bg-blue-50 rounded-lg border border-blue-200">
+              <strong className="text-blue-900 text-xs uppercase tracking-wide">Best Subject Areas:</strong>
+              <div className="mt-1 text-xs text-blue-800 font-medium">{getBestSubjectCategories()}</div>
+            </div>
             <div className="mt-3 text-center">
               <div className="border-t-2 border-blue-300 pt-2">
                 <strong className="text-xs text-blue-900 uppercase tracking-wide">Manager LVTC</strong>
