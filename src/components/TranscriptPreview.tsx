@@ -318,29 +318,29 @@ const TranscriptPreview = ({ data }: TranscriptPreviewProps) => {
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-xl border border-blue-200">
             <div className="mb-3">
               <strong className="text-blue-900 text-xs uppercase tracking-wide">Name of Student:</strong>
-              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-sm font-semibold text-gray-800">
-                {data.studentName}
-              </div>
+                <div className="border-b-2 border-dotted border-blue-400 pb-1 mt-1 text-sm font-semibold text-gray-800" style={{ borderBottomStyle: 'dotted', borderBottomWidth: '2px' }}>
+                  {data.studentName}
+                </div>
             </div>
             <div>
               <strong className="text-blue-900 text-xs uppercase tracking-wide">Course:</strong>
-              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-sm font-semibold text-gray-800">
-                {data.course}
-              </div>
+                <div className="border-b-2 border-dotted border-blue-400 pb-1 mt-1 text-sm font-semibold text-gray-800" style={{ borderBottomStyle: 'dotted', borderBottomWidth: '2px' }}>
+                  {data.course}
+                </div>
             </div>
           </div>
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-xl border border-blue-200">
             <div className="mb-3">
               <strong className="text-blue-900 text-xs uppercase tracking-wide">Admission No:</strong>
-              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-sm font-semibold text-gray-800">
-                {data.admissionNo}
-              </div>
+                <div className="border-b-2 border-dotted border-blue-400 pb-1 mt-1 text-sm font-semibold text-gray-800" style={{ borderBottomStyle: 'dotted', borderBottomWidth: '2px' }}>
+                  {data.admissionNo}
+                </div>
             </div>
             <div>
               <strong className="text-blue-900 text-xs uppercase tracking-wide">School Year:</strong>
-              <div className="border-b-2 border-blue-300 pb-1 mt-1 text-sm font-semibold text-gray-800">
-                {data.schoolYear}
-              </div>
+                <div className="border-b-2 border-dotted border-blue-400 pb-1 mt-1 text-sm font-semibold text-gray-800" style={{ borderBottomStyle: 'dotted', borderBottomWidth: '2px' }}>
+                  {data.schoolYear}
+                </div>
             </div>
           </div>
         </div>
